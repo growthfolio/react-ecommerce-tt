@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { AuthProvider } from './contexts/AuthContext';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+
+// Importando as páginas
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ListCategory from './pages/ListCategory';
+import FormCategory from './pages/FormCategory';
+import SearchByCategory from './pages/SearchByCategory';
+import DeleteCategory from './pages/DeleteCategory';
+import ListProduct from './pages/ListProduct';
+import SearchProducts from './pages/SearchProducts';
+import FormProduct from './pages/FormProduct';
+import Profile from './pages/Profile';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AuthProvider>
+      <BrowserRouter>
+        <Navbar />
+        <ToastContainer />
+        <div className="min-h-[80vh]">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/categories/all" element={<ListCategory />} />
+            <Route path="/categories/:id" element={<FormCategory />} />
+            <Route path="/categories/name/:name" element={<SearchByCategory />} />
+            <Route path="/registerCategory" element={<FormCategory />} />
+            <Route path="/editCategory/:id" element={<FormCategory />} />
+            <Route path="/deleteCategory/:id" element={<DeleteCategory />} />
+            <Route path="/product/all" element={<ListProduct />} />
+            <Route path="/product/names/:name" element={<SearchProducts />} />
+            <Route path="/registerProduct" element={<FormProduct />} />
+            <Route path="/editProduct/:id" element={<FormProduct />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </div>
+        <Footer />
+      </BrowserRouter>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
