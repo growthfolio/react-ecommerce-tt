@@ -1,0 +1,76 @@
+/* Estilo base para os botões */
+.custom-prev,
+.custom-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 50px; /* Aumentado para destacar */
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f8862985; /* Fundo laranja puxado para amarelo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+/* Botão anterior */
+.custom-prev {
+  left: 15px; /* Margem à esquerda */
+}
+
+/* Botão próximo */
+.custom-next {
+  right: 15px; /* Margem à direita */
+}
+
+/* Seta dentro do círculo */
+.custom-prev::before,
+.custom-next::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Seta verde preenchida para o botão anterior */
+.custom-prev::before {
+  border-width: 12px 14px 12px 0;
+  border-color: transparent #00923f transparent transparent; /* Verde */
+  margin-left: -2px;
+}
+
+/* Seta verde preenchida para o botão próximo */
+.custom-next::before {
+  border-width: 12px 0 12px 14px;
+  border-color: transparent transparent transparent #00923f; /* Verde */
+  margin-right: -2px;
+}
+
+/* Hover */
+.custom-prev:hover,
+.custom-next:hover {
+  background-color: #f88629; /* Laranja mais claro para o hover */
+}
+
+/* Estilo base para as bolinhas (inativas) */
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #f88629; /* Borda laranja */
+  background-color: transparent; /* Fundo transparente */
+  border-radius: 50%;
+  opacity: 1; /* Garante que as bolinhas sejam visíveis */
+  transition: all 0.3s ease; /* Animação suave para transições */
+}
+
+/* Bolinha ativa (verde preenchida) */
+.swiper-pagination-bullet-active {
+  background-color: #00923f; /* Fundo verde */
+  border-color: #00923f; /* Borda verde */
+  transform: scale(1.2); /* Aumenta ligeiramente o tamanho da bolinha ativa */
+  transition: all 0.3s ease; /* Animação suave para transições */
+}

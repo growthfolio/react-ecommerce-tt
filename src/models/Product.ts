@@ -5,7 +5,7 @@ import User from "./User";
 export default interface Product {
   id: number;
   amount: number;
-  createdAt: Date;
+  createdAt?: Date;
   description: string;
   likes: number;
   name: string;
