@@ -8,6 +8,8 @@ import "./../../index.css";
 import User from "../../models/User";
 import { toastAlert } from "../../utils/ToastAlert";
 import { registerUser } from "../../services/Service";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../config/firebaseConfig";
 
 const options = [
   { type: "cliente", displayType: "Quero comprar", textPlaceholder: "CPF" },
@@ -38,6 +40,40 @@ function Register() {
     }
   }, [userResponse, navigate]);
 
+  const [selectedFile, setSelectedFile] = useState<File | null>(null); // Armazena o arquivo localmente
+
+  function handleFileSelection(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]; // Obtém o arquivo selecionado
+    if (file) {
+      setSelectedFile(file); // Armazena o arquivo localmente
+      toastAlert("Arquivo selecionado. Envie o formulário para concluir o upload.", "info");
+    }
+  }
+
+
+  function handleFileUpload(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]; // Obtém o arquivo selecionado pelo usuário
+    if (file) {
+      const storageRef = ref(storage, `images/${file.name}`); // Cria uma referência no Firebase Storage
+      uploadBytes(storageRef, file) // Faz o upload do arquivo
+        .then((snapshot) => {
+          getDownloadURL(snapshot.ref) // Obtém a URL pública do arquivo
+            .then((url) => {
+              setUser((prevState) => ({
+                ...prevState,
+                photo: url, // Atualiza o estado do usuário com a URL
+              }));
+              toastAlert("Imagem enviada com sucesso!", "sucesso");
+            });
+        })
+        .catch((error) => {
+          console.error("Erro ao fazer upload:", error);
+          toastAlert("Erro ao enviar a imagem.", "erro");
+        });
+    }
+  }
+  
+
   function handleConfirmPassword(e: ChangeEvent<HTMLInputElement>) {
     setConfirmPassword(e.target.value);
   }
@@ -58,13 +94,25 @@ function Register() {
 
   async function registerNewUser(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
-
+  
     if (confirmPassword === user.password && user.password.length >= 8) {
       setIsLoading(true);
-
+  
       try {
-        console.log("Corpo da requisição:", JSON.stringify(user, null, 2));
-        await registerUser(`/users/register`, user, setUserResponse);
+        let photoUrl = user.photo;
+  
+        // Faz o upload do arquivo apenas se um arquivo foi selecionado
+        if (selectedFile) {
+          const storageRef = ref(storage, `images/${selectedFile.name}`);
+          const snapshot = await uploadBytes(storageRef, selectedFile);
+          photoUrl = await getDownloadURL(snapshot.ref); // Obtém a URL pública do arquivo
+        }
+
+        // Atualiza o estado do usuário com a URL da foto
+        const userToRegister = { ...user, photo: photoUrl };
+        console.log("Corpo da requisição:", JSON.stringify(userToRegister, null, 2));
+  
+        await registerUser(`/users/register`, userToRegister, setUserResponse);
         toastAlert("Usuário cadastrado com sucesso", "sucesso");
       } catch (error) {
         console.error("Erro ao cadastrar usuário:", error);
@@ -73,15 +121,13 @@ function Register() {
         setIsLoading(false);
       }
     } else {
-      toastAlert(
-        "Dados inconsistentes. Verifique as informações de cadastro.",
-        "erro"
-      );
+      toastAlert("Dados inconsistentes. Verifique as informações de cadastro.", "erro");
       setUser({ ...user, password: "" });
       setConfirmPassword("");
       setIsLoading(false);
     }
   }
+  
 
   return (
     <>
@@ -126,13 +172,13 @@ function Register() {
               onChange={updateUserState}
             />
             <input
-              type="text"
+              type="file"
               id="photo"
               name="photo"
               placeholder="Foto (URL)"
               className="border border-davysGray rounded-[10px] p-3 h-14 text-darkMossGreen font-openSans"
               value={user.photo}
-              onChange={updateUserState}
+              onChange={handleFileSelection}
             />
             <input
               type="password"

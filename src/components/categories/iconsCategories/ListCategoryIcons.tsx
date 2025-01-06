@@ -19,25 +19,20 @@ function ListCategoryIcons() {
     };
 
     findCategories();
-  }, []); // Removeu dependência desnecessária (categories.length)
+  }, []);
 
   return (
-    <div className="bg-darkMossGreen flex justify-center mb-5">
-      <div className="container py-5 flex flex-col items-center justify-center text-white">
-        {/* <h5 className="font-Roboto text-white mt-4 mb-5">
-          Conheça nossas categorias
-        </h5> */}
-        <div className="px-1 py-1 flex flex-wrap justify-center gap-4">
-          {categories.length > 0 ? (
-            categories.map((category) => (
-              <CategoriesIcons key={category.id} category={category} />
-            ))
-          ) : (
-            <p className="text-center text-white">Carregando categorias...</p>
-          )}
-        </div>
+    <header className="bg-gradient-to-b from-[#070d17] via-[#04080f] to-[#04080f] py-3 shadow-md w-full z-50">
+      <div className="container mx-auto flex justify-center items-center gap-4 flex-wrap text-center">
+        {categories.length > 0 ? (
+          categories.map((category) => (
+            <CategoriesIcons key={category.id} category={category} />
+          ))
+        ) : (
+          <p className="text-white animate-pulse">Carregando categorias...</p>
+        )}
       </div>
-    </div>
+    </header>
   );
 }
 

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "../../../index.css";
 import Category from "../../../models/Category";
 import CardCategory from "../cardCategory/CardCategory";

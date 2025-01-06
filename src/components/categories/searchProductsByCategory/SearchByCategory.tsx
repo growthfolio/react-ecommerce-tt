@@ -5,6 +5,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import Category from "../../../models/Category";
 import { toastAlert } from "../../../utils/ToastAlert";
 import { fetchData } from "../../../services/Service";
+import CardProduct from "../../products/cardProduct/CardProduct";
 
 
 function searchByCategory() {
@@ -37,7 +38,7 @@ function searchByCategory() {
           {category[0].products.map((product) => (
             <CardProduct
               key={product.id}
-              prod={product}
+              product={product}
               category={category[0].name}
             />
           ))}

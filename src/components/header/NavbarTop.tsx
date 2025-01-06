@@ -6,7 +6,7 @@ import {
   Transition,
 } from "@headlessui/react";
 import { CaretDown, MagnifyingGlass, ShoppingCart, SignIn, SignOut, User, UserSquare } from "@phosphor-icons/react";
-import { Fragment, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import { AuthContext } from "../../contexts/AuthContext";

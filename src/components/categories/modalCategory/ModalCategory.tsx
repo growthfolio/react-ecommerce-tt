@@ -1,5 +1,5 @@
 import "reactjs-popup/dist/index.css";
-import "./ModalCategoria.css";
+// import "./ModalCategoria.css";
 import {
   ModalButtonAlter,
   ModalButtonCreate,

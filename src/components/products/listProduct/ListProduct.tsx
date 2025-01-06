@@ -38,7 +38,7 @@ function ListProduct() {
           wrapperClass=""
         />
       )}
-      <div className="w-[900px] mx-auto my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center ">
+      <div className="w-50 mx-10 my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center ">
         {products.map((product) => (
           <CardProduct
             key={product.id}

@@ -2,8 +2,6 @@ import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { RotatingLines } from 'react-loader-spinner';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
-import PlantRightIcon from '../../assets/icons/PlantaRight.svg';
-import PlantLeftIcon from '../../assets/icons/PlantaLeft.svg';
 import LoginImage from '../../assets/Logo.png';
 import './../../index.css';
 import UserLogin from '../../models/UserLogin';

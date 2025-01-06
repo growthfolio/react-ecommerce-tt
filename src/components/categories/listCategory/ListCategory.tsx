@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Category from "../../../models/Category";
-import defaultCategories from "../defaultCategories/defaultCategories";
 import CardCategory from "../cardCategory/CardCategory";
+import { fetchData } from "../../../services/Service";
 
 
 function ListCategories() {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    setCategories(defaultCategories);
+    const findCategories = async () => {
+      try {
+        await fetchData("/categories/all", setCategories, {
+          headers: {},
+        });
+      } catch (error) {
+        console.error("Erro ao buscar categorias:", error);
+      }
+    };
+
+    findCategories();
   }, []);
 
   return (

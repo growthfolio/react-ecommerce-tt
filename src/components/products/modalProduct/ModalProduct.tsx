@@ -5,6 +5,7 @@ import {
   ModalButtonCreate,
   ModalButtonDelete,
 } from "./modalButton/ModalButton";
+
 interface ModalProductProps {
   type: number;
   id: number;

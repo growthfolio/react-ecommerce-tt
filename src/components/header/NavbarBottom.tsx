@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Category from "../../models/Category";
 import { fetchData } from "../../services/Service";
 
@@ -14,10 +14,10 @@ function NavbarBottom() {
   return (
     <nav className="w-full bg-gradient-to-t from-[#070d17] via-[#04080f] to-[#070d17] text-white flex justify-center py-3">
       <div className="flex gap-10 text-[16px] font-bold">
-        <Link to="/home" className="hover:text-sunglow">Home</Link>
-        <Link to="/products/all" className="hover:text-sunglow">Produtos</Link>
+        <Link to="/home" className="hover:text-[#f88629]">Home</Link>
+        <Link to="/products/all" className="hover:text-[#f88629]">Produtos</Link>
         <Menu as="div" className="relative inline-block">
-          <MenuButton className="hover:text-sunglow">
+          <MenuButton className="hover:text-[#f88629]">
             Categorias
           </MenuButton>
           <Transition>
@@ -35,7 +35,7 @@ function NavbarBottom() {
             </MenuItems>
           </Transition>
         </Menu>
-        <Link to="/about" className="hover:text-sunglow">Sobre</Link>
+        <Link to="/about" className="hover:text-[#f88629]">Sobre</Link>
       </div>
     </nav>
   );

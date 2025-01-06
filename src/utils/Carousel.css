@@ -74,3 +74,21 @@
   transform: scale(1.2); /* Aumenta ligeiramente o tamanho da bolinha ativa */
   transition: all 0.3s ease; /* Animação suave para transições */
 }
+
+@media (max-width: 768px) {
+  /* Botões no mobile */
+  .custom-prev,
+  .custom-next {
+    top: 50%; /* Garante o alinhamento vertical */
+    transform: translateY(-50%); /* Centraliza verticalmente */
+  }
+
+  /* Ajuste específico para telas pequenas */
+  .custom-prev {
+    left: 5px; /* Reduz a margem lateral no mobile */
+  }
+
+  .custom-next {
+    right: 5px; /* Reduz a margem lateral no mobile */
+  }
+}

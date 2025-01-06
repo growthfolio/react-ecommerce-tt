@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Home.css";
-import { ArrowRight } from "@phosphor-icons/react";
-import { Preloader } from "../../components/loader/Preloader";
+// import { Preloader } from "../../components/loader/Preloader";
 import ListProduct from "../../components/products/listProduct/ListProduct";
 import ListCategoryIcons from "../../components/categories/iconsCategories/ListCategoryIcons";
 import Carousel from "../../utils/Carousel";
@@ -10,7 +9,7 @@ import carouselMock from "../../utils/carouselMock";
 function Home() {
   return (
     <>
-      <Preloader></Preloader>
+      {/* <Preloader></Preloader> */}
       <main>
         {/* Banner principal */}
         <section className=" bg-seasalt  justify-center items-center">
@@ -43,9 +42,11 @@ function Home() {
             <h5>Produtos em Destaque</h5>
           </div>
         </section>
+        <section className="w-full">
         <ListProduct />
+        </section>
         {/* Links para Produtos e Categorias */}
-        <section className="flex justify-center mt-[70px]">
+        {/* <section className="flex justify-center mt-[70px]">
           <div className="justify-around items-center grid grid-cols-2 gap-6 container w-[900px]">
             <Link
               to="/products/all"
@@ -60,7 +61,7 @@ function Home() {
               <h5 className="text-white">Categorias</h5>
             </Link>
           </div>
-        </section>
+        </section> */}
       </main>
     </>
   );
