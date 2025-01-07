@@ -6,23 +6,54 @@ import Category from "../../../models/Category";
 import Product from "../../../models/Product";
 import { fetchData, postData, updateData } from "../../../services/Service";
 import { toastAlert } from "../../../utils/ToastAlert";
-
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../../config/firebaseConfig";
 
 interface FormEditProductProps {
   id: number;
+}
+
+function Input({
+  label,
+  type,
+  name,
+  value,
+  placeholder,
+  onChange,
+  required = false,
+}: {
+  label: string;
+  type: string;
+  name: string;
+  value: string | number;
+  placeholder: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label htmlFor={name}>{label}</label>
+      <input
+        value={value}
+        onChange={onChange}
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        required={required}
+        className="border border-darkMossGreen rounded-[10px] p-2 h-14"
+      />
+    </div>
+  );
 }
 
 function FormEditProduct({ id }: FormEditProductProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
-
   const { user, handleLogout } = useContext(AuthContext);
-
   const token = user.token;
 
   const [categories, setCategories] = useState<Category[]>([]);
-
   const [category, setCategory] = useState<Category>({
     id: 0,
     name: "",
@@ -33,7 +64,7 @@ function FormEditProduct({ id }: FormEditProductProps) {
   const [product, setProduct] = useState<Product>({
     id: 0,
     name: "",
-    price: 0, 
+    price: 0,
     amount: 0,
     photo: "",
     description: "",
@@ -45,16 +76,8 @@ function FormEditProduct({ id }: FormEditProductProps) {
     likes: 0,
   });
 
-  async function searchByProductId(id: string) {
+  async function searchProductById(id: string) {
     await fetchData(`/products/${id}`, setProduct, {
-      headers: {
-        Authorization: token,
-      },
-    });
-  }
-
-  async function searchCategoryById(id: string) {
-    await fetchData(`/categories/${id}`, setCategory, {
       headers: {
         Authorization: token,
       },
@@ -68,6 +91,22 @@ function FormEditProduct({ id }: FormEditProductProps) {
       },
     });
   }
+
+  async function handlePhotoUpload(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        const storageRef = ref(storage, `products/${file.name}`);
+        const snapshot = await uploadBytes(storageRef, file);
+        const photoURL = await getDownloadURL(snapshot.ref);
+        setProduct((prev) => ({ ...prev, photo: photoURL }));
+        toastAlert("Foto carregada com sucesso", "sucesso");
+      } catch (error) {
+        toastAlert("Erro ao carregar a foto"+ error, "erro");
+      }
+    }
+  }
+
   useEffect(() => {
     if (token === "") {
       toastAlert("Você precisa estar logado", "info");
@@ -77,23 +116,13 @@ function FormEditProduct({ id }: FormEditProductProps) {
 
   useEffect(() => {
     searchCategory();
-
-    if (id !== undefined) {
-      const idString: string = id.toString();
-      searchByProductId(idString);
+    if (id) {
+      searchProductById(id.toString());
     }
   }, [id]);
 
-  useEffect(() => {
-    setProduct({
-      ...product,
-      category: category,
-    });
-  }, [category]);
-
   function updateState(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-
     setProduct((prevProduct) => ({
       ...prevProduct,
       [name]: value,
@@ -102,153 +131,109 @@ function FormEditProduct({ id }: FormEditProductProps) {
     }));
   }
 
-  console.log(product);
-  function backToAllProduct() {
-    navigate("/products/all");
-  }
-
-  async function createNewProduct(e: ChangeEvent<HTMLFormElement>) {
+  async function saveProduct(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
-    if (id != undefined) {
-      try {
-        await updateData(`/products`, product, setProduct, {
-          headers: {
-            Authorization: token,
-          },
-        });
-
-        toastAlert("Produto atualizado com sucesso", "sucesso");
-        backToAllProduct();
-      } catch (error: any) {
-        if (error.toString().includes("403")) {
-          toastAlert("O token expirou, favor logar novamente", "info");
-          handleLogout();
-        } else {
-          toastAlert("Erro ao atualizar o produto", "erro");
-        }
+    try {
+      await updateData(`/products`, product, setProduct, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      toastAlert("Produto atualizado com sucesso", "sucesso");
+      navigate("/products/all");
+    } catch (error: any) {
+      if (error.toString().includes("403")) {
+        toastAlert("O token expirou, favor logar novamente", "info");
+        handleLogout();
+      } else {
+        toastAlert("Erro ao atualizar o produto"+ error, "erro");
       }
-    } else {
-      try {
-        await postData(`/products`, product, setProduct, {
-          headers: {
-            Authorization: token,
-          },
-        });
-
-        toastAlert("Produto cadastrado com sucesso", "sucesso");
-        backToAllProduct();
-      } catch (error: any) {
-        if (error.toString().includes("403")) {
-          toastAlert("O token expirou, favor logar novamente", "info");
-          handleLogout();
-        } else {
-          toastAlert("Erro ao cadastrar o produto", "erro");
-        }
-      }
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   }
 
-  const loadingCategory = category.description === "";
-
   return (
-    <div className=" flex flex-col items-center">
-      <h1 className="text-4xl text-center my-8">
-        {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
-      </h1>
-
+    <div className="flex flex-col items-center">
+      <h1 className="text-4xl text-center my-8">Editar Produto</h1>
       <form
-        onSubmit={createNewProduct}
-        className="flex flex-col w-[600px]  m-4 gap-4 input-login"
+        onSubmit={saveProduct}
+        className="flex flex-col w-[600px] m-4 gap-4 input-login"
       >
+        <Input
+          label="Nome do Produto"
+          type="text"
+          name="name"
+          value={product.name}
+          placeholder="Nome"
+          onChange={updateState}
+          required
+        />
+        <Input
+          label="Descrição do Produto"
+          type="text"
+          name="description"
+          value={product.description}
+          placeholder="Descrição"
+          onChange={updateState}
+          required
+        />
+        <Input
+          label="Preço do Produto"
+          type="number"
+          name="price"
+          value={product.price}
+          placeholder="Preço"
+          onChange={updateState}
+          required
+        />
         <div className="flex flex-col gap-2">
-          <label htmlFor="nome">Nome do Produto</label>
+          <label htmlFor="foto">Foto do produto</label>
           <input
-            value={product.name}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
-            type="text"
-            placeholder="Nome"
-            name="nome"
-            required
-            className="border border-darkMossGreen rounded-[10px] p-2 h-14"
+            type="file"
+            accept="image/*"
+            onChange={handlePhotoUpload}
+            className="border border-darkMossGreen rounded-[10px] p-2"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="descricao">Descrição do Produto</label>
-          <input
-            value={product.description}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
-            type="text"
-            placeholder="Descrição"
-            name="descricao"
-            required
-            className="border border-darkMossGreen rounded-[10px] p-2 h-14"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="preco">Preço do Produto</label>
-          <input
-            value={product.price}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
-            type="number"
-            placeholder="Preço"
-            name="preco"
-            required
-            className="border border-darkMossGreen rounded-[10px] p-2 h-14"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="foto">Foto do produto</label>
-            <input
-              value={product.photo}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                updateState(e)
-              }
-              type="text"
-              placeholder="Foto(URL)"
-              name="foto"
-              required
-              className="border border-darkMossGreen rounded-[10px] p-2 h-14"
-            />
-          </div>
-          <p>Categoria do Produto</p>
-
+          <label htmlFor="categoria">Categoria do Produto</label>
           <select
-            name="produto"
-            id="produto"
+            name="categoria"
+            id="categoria"
+            value={product.category?.id || ""}
             className="border p-2 border-slate-800 rounded"
-            onChange={(e) => searchCategoryById(e.currentTarget.value)}
+            onChange={(e) => {
+              const selectedCategory = categories.find((cat) => cat.id === parseInt(e.target.value));
+              if (selectedCategory) setCategory(selectedCategory);
+            }}
           >
-            <option value="" selected disabled>
+            <option value="" disabled>
               Selecione uma categoria
             </option>
-
-            {categories.map((category) => (
-              <>
-                <option value={category.id}>{category.description}</option>
-              </>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.description}
+              </option>
             ))}
           </select>
         </div>
-
         <button
-          disabled={loadingCategory}
+          disabled={isLoading}
           type="submit"
-          className="rounded-[10px] bg-darkMossGreen text-white w-2/6 h-[60px] p-4 flex justify-center items-center ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 shadow-md cursor-pointer">
-          {isLoading ? <RotatingLines
+          className="rounded-[10px] bg-darkMossGreen text-white w-2/6 h-[60px] p-4 flex justify-center items-center ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 shadow-md cursor-pointer"
+        >
+          {isLoading ? (
+            <RotatingLines
               strokeColor="white"
               strokeWidth="5"
               animationDuration="0.75"
               width="24"
-              visible={true}
+              visible
             />
-           : id !== undefined ? (
-            "Editar"
           ) : (
-            "Cadastrar"
+            "Salvar"
           )}
         </button>
       </form>

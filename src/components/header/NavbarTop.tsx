@@ -5,7 +5,15 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import { CaretDown, MagnifyingGlass, ShoppingCart, SignIn, SignOut, User, UserSquare } from "@phosphor-icons/react";
+import {
+  CaretDown,
+  MagnifyingGlass,
+  ShoppingCart,
+  SignIn,
+  SignOut,
+  User,
+  UserSquare,
+} from "@phosphor-icons/react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
@@ -41,7 +49,7 @@ function NavbarTop() {
             <p className="px-2">Meu Perfil</p>
           </Link>
         </MenuItem>
-        {user.type === 'admin' && (
+        {user.type === "admin" && (
           <>
             <MenuItem>
               <Link
@@ -87,7 +95,7 @@ function NavbarTop() {
         </MenuItem>
       </div>
     </MenuItems>
-  );  
+  );
 
   return (
     <div className="w-full bg-gradient-to-t from-[#070d17] via-[#04080f] to-[#04080f] text-white flex items-center justify-between py-3 px-6">
@@ -98,7 +106,7 @@ function NavbarTop() {
 
       {/* Barra de pesquisa */}
       <div className="flex flex-1 justify-center">
-        <div className="flex items-center bg-seasalt rounded-r-full border border-emerald w-full max-w-2xl lg:max-w-xl md:max-w-lg sm:max-w-md">
+        <div className="flex items-center bg-seasalt rounded-r-full border w-full max-w-2xl lg:max-w-xl md:max-w-lg sm:max-w-md">
           <input
             type="text"
             placeholder="Pesquisar"
@@ -108,10 +116,11 @@ function NavbarTop() {
           />
           <button
             onClick={handleSearch}
-            className="bg-emerald p-2 rounded-full border-2 border-emerald rounded-l-none flex justify-center items-center"
-          
+            className="bg-emerald p-2 rounded-full border-1 border-emerald rounded-l-none flex justify-center items-center"
           >
-            <span><MagnifyingGlass size={28} /></span>
+            <span>
+              <MagnifyingGlass size={28} />
+            </span>
           </button>
         </div>
       </div>
@@ -121,9 +130,9 @@ function NavbarTop() {
         {/* Perfil */}
         <Menu as="div" className="relative inline-block">
           <MenuButton className="flex items-center gap-1 text-white">
-          <span className="">
-            <User size={22} color="#f7f7f7" weight="light" />
-          </span>
+            <span className="">
+              <User size={22} color="#f7f7f7" weight="light" />
+            </span>
             <CaretDown size={12} />
           </MenuButton>
           <Transition>{userDropdown}</Transition>

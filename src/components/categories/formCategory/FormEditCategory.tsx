@@ -5,137 +5,170 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import Category from "../../../models/Category";
 import { fetchData, postData, updateData } from "../../../services/Service";
 import { toastAlert } from "../../../utils/ToastAlert";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../../config/firebaseConfig";
 
-interface FormCategoryProps {
-    id: number;
+interface FormEditCategoryProps {
+  id?: number;
 }
 
-function FormEditCategory({ id }: FormCategoryProps) {
+function Input({
+  label,
+  type,
+  name,
+  value,
+  placeholder,
+  onChange,
+  required = false,
+}: {
+  label: string;
+  type: string;
+  name: string;
+  value: string | number;
+  placeholder: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label htmlFor={name}>{label}</label>
+      <input
+        value={value}
+        onChange={onChange}
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        required={required}
+        className="border border-darkMossGreen rounded-[10px] p-2 h-14"
+      />
+    </div>
+  );
+}
+
+function FormEditCategory({ id }: FormEditCategoryProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [category, setCategory] = useState<Category>({} as Category);
-
-  let navigate = useNavigate();
-
-  const { user, handleLogout } = useContext(AuthContext); //email ou usuario
+  const navigate = useNavigate();
+  const { user, handleLogout } = useContext(AuthContext);
   const token = user.token;
 
-  async function searchById(id: number) {
-    await fetchData(`/categories/${id}`, setCategory, {
-      headers: {
-        Authorization: token,
-      },
-    });
-  }
+  const [category, setCategory] = useState<Category>({
+    id: 0,
+    name: "",
+    description: "",
+    photo: "",
+  });
 
   useEffect(() => {
-    if (id !== undefined) {
-      searchById(id);
+    if (token === "") {
+      toastAlert("Você precisa estar logado", "info");
+      navigate("/");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (id) {
+      fetchData(`/categories/${id}`, setCategory, {
+        headers: {
+          Authorization: token,
+        },
+      });
     }
   }, [id]);
 
-  function updateState(e: ChangeEvent<HTMLInputElement>) {
-    setCategory({
-      ...category,
-      [e.target.name]: e.target.value,
-    });
-
-    console.log(JSON.stringify(category));
+  async function handlePhotoUpload(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        const storageRef = ref(storage, `categories/${file.name}`);
+        const snapshot = await uploadBytes(storageRef, file);
+        const photoURL = await getDownloadURL(snapshot.ref);
+        setCategory((prev) => ({ ...prev, photo: photoURL }));
+        toastAlert("Foto carregada com sucesso", "sucesso");
+      } catch (error) {
+        toastAlert("Erro ao carregar a foto: " + error, "erro");
+      }
+    }
   }
 
-  async function createNewCategory(e: ChangeEvent<HTMLFormElement>) {
+  function updateState(e: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      [name]: value,
+    }));
+  }
+
+  async function saveCategory(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
-
-    if (id !== undefined) {
-      try {
-        await updateData(`/categories`, category, setCategory, {
+    try {
+      if (id) {
+        await updateData(`/categories/${id}`, category, setCategory, {
           headers: {
             Authorization: token,
           },
         });
-
-        alert("Categoria atualizada com sucesso");
-        goToAllCategory();
-      } catch (error: any) {
-        if (error.toString().includes("403")) {
-          toastAlert("O token expirou, favor logar novamente", "info");
-          handleLogout();
-        } else {
-          toastAlert("Erro ao atualizar a categoria", "erro");
-        }
-      }
-    } else {
-      try {
+        toastAlert("Categoria atualizada com sucesso", "sucesso");
+      } else {
         await postData(`/categories`, category, setCategory, {
           headers: {
             Authorization: token,
           },
         });
-
-        toastAlert("Categoria cadastrada com sucesso", "sucesso");
-      } catch (error: any) {
-        if (error.toString().includes("403")) {
-          toastAlert("O token expirou, favor logar novamente", "info");
-          handleLogout();
-        } else {
-          toastAlert("Erro ao cadastrar a categoria", "erro");
-        }
+        toastAlert("Categoria criada com sucesso", "sucesso");
       }
+      navigate("/categories/all");
+    } catch (error: any) {
+      if (error.toString().includes("403")) {
+        toastAlert("O token expirou, favor logar novamente", "info");
+        handleLogout();
+      } else {
+        toastAlert("Erro ao salvar a categoria: " + error, "erro");
+      }
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-    goToAllCategory();
   }
-
-  function goToAllCategory() {
-    navigate("/categories/all");
-  }
-
-  useEffect(() => {
-    if (token === "") {
-      toastAlert("Você precisa estar logado", "info");
-      navigate("/login");
-    }
-  }, [token]);
 
   return (
-    <div className="container flex flex-col items-center justify-center mx-auto">
-      <h1 className="text-4xl text-center my-8">
-        {id === undefined ? "Cadastre uma nova categoria" : "Editar categoria"}
-      </h1>
-      <form className="w-1/2 flex flex-col gap-4" onSubmit={createNewCategory}>
+    <div className="flex flex-col items-center">
+      <h1 className="text-4xl text-center my-8">{id ? "Editar Categoria" : "Cadastrar Categoria"}</h1>
+      <form
+        onSubmit={saveCategory}
+        className="flex flex-col w-[600px] m-4 gap-4 input-login"
+      >
+        <Input
+          label="Nome da Categoria"
+          type="text"
+          name="name"
+          value={category.name}
+          placeholder="Nome"
+          onChange={updateState}
+          required
+        />
+        <Input
+          label="Descrição da Categoria"
+          type="text"
+          name="description"
+          value={category.description}
+          placeholder="Descrição"
+          onChange={updateState}
+          required
+        />
         <div className="flex flex-col gap-2">
-          <label htmlFor="nome">Nome da categoria</label>
+          <label htmlFor="foto">Foto da Categoria</label>
           <input
-            type="text"
-            placeholder="Nome"
-            name="nome"
-            className="border-2 border-slate-700 rounded p-2"
-            value={category.name}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
-          />
-          <label htmlFor="descricao">Descrição da categoria</label>
-          <input
-            type="text"
-            placeholder="Descrição"
-            name="descricao"
-            className="border-2 border-slate-700 rounded p-2"
-            value={category.description}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
-          />
-          <label htmlFor="foto">Foto da categoria</label>
-          <input
-            type="text"
-            placeholder="Link da foto"
-            name="foto"
-            className="border-2 border-slate-700 rounded p-2"
-            value={category.photo}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
+            type="file"
+            accept="image/*"
+            onChange={handlePhotoUpload}
+            className="border border-darkMossGreen rounded-[10px] p-2"
           />
         </div>
         <button
-          className="rounded-[10px] bg-darkMossGreen border border-darkMossGreen hover:bg-[#f7f7f7] hover:text-darkMossGreen text-white w-2/6 h-[60px] p-4 flex justify-center items-center"
+          disabled={isLoading}
           type="submit"
+          className="rounded-[10px] bg-darkMossGreen text-white w-2/6 h-[60px] p-4 flex justify-center items-center ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 shadow-md cursor-pointer"
         >
           {isLoading ? (
             <RotatingLines
@@ -143,10 +176,10 @@ function FormEditCategory({ id }: FormCategoryProps) {
               strokeWidth="5"
               animationDuration="0.75"
               width="24"
-              visible={true}
+              visible
             />
           ) : (
-            <span>{id === undefined ? "Cadastrar" : "Editar"}</span>
+            id ? "Atualizar" : "Cadastrar"
           )}
         </button>
       </form>

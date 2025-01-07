@@ -1,8 +1,7 @@
 import { toastAlert } from "../utils/ToastAlert";
 import CartItem from "../models/CartItem";
 
-const API_BASE_URL = "http://localhost:8080/carts/user";
-
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL + '/carts/user';
 
 export const fetchCartItems = async (userId: number, token: string): Promise<CartItem[]> => {
   try {
@@ -12,7 +11,7 @@ export const fetchCartItems = async (userId: number, token: string): Promise<Car
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`, // Adiciona o token no cabeçalho
+        "Authorization": `Bearer ${token}`,
       },
     });
 

@@ -5,17 +5,20 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import Category from "../../../models/Category";
 import { fetchData, postData, updateData } from "../../../services/Service";
 import { toastAlert } from "../../../utils/ToastAlert";
-
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../../config/firebaseConfig";
 
 function FormCategory() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [category, setCategory] = useState<Category>({
+    id: 0,
+    name: "",
+    description: "",
+    photo: "",
+  });
 
-  const [category, setCategory] = useState<Category>({} as Category);
-
-  let navigate = useNavigate();
-
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-
   const { user, handleLogout } = useContext(AuthContext);
   const token = user.token;
 
@@ -29,65 +32,63 @@ function FormCategory() {
 
   useEffect(() => {
     if (id !== undefined) {
-        searchById(id);
+      searchById(id);
     }
   }, [id]);
+
+  async function handlePhotoUpload(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        const storageRef = ref(storage, `categories/${file.name}`);
+        const snapshot = await uploadBytes(storageRef, file);
+        const photoURL = await getDownloadURL(snapshot.ref);
+        setCategory((prev) => ({ ...prev, photo: photoURL }));
+        toastAlert("Foto carregada com sucesso", "sucesso");
+      } catch (error) {
+        toastAlert("Erro ao carregar a foto: " + error, "erro");
+      }
+    }
+  }
 
   function updateState(e: ChangeEvent<HTMLInputElement>) {
     setCategory({
       ...category,
       [e.target.name]: e.target.value,
     });
-
-    console.log(JSON.stringify(category));
   }
 
   async function generateNewCategory(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
 
-    if (id !== undefined) {
-      try {
+    try {
+      if (id !== undefined) {
         await updateData(`/categories`, category, setCategory, {
           headers: {
             Authorization: token,
           },
         });
-
-        alert("Categoria atualizada com sucesso");
-        goToAllCategory();
-      } catch (error: any) {
-        if (error.toString().includes("403")) {
-          toastAlert("O token expirou, favor logar novamente", "info");
-          handleLogout();
-        } else {
-          toastAlert("Erro ao atualizar a categoria", "erro");
-        }
-      }
-    } else {
-      try {
+        toastAlert("Categoria atualizada com sucesso", "sucesso");
+      } else {
         await postData(`/categories`, category, setCategory, {
           headers: {
             Authorization: token,
           },
         });
-
         toastAlert("Categoria cadastrada com sucesso", "sucesso");
-      } catch (error: any) {
-        if (error.toString().includes("403")) {
-          toastAlert("O token expirou, favor logar novamente", "info");
-          handleLogout();
-        } else {
-          toastAlert("Erro ao cadastrar a categoria", "erro");
-        }
       }
+      navigate("/categories/all");
+    } catch (error: any) {
+      if (error.toString().includes("403")) {
+        toastAlert("O token expirou, favor logar novamente" + error, "info");
+        handleLogout();
+      } else {
+        toastAlert("Erro ao salvar a categoria: " + error, "erro");
+      }
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-    goToAllCategory();
-  }
-
-  function goToAllCategory() {
-    navigate("/categories/all");
   }
 
   useEffect(() => {
@@ -102,34 +103,35 @@ function FormCategory() {
       <h1 className="text-4xl text-center my-8">
         {id === undefined ? "Cadastre uma nova categoria" : "Editar categoria"}
       </h1>
-      <form className="w-1/2 flex flex-col gap-4" onSubmit={generateNewCategory}>
+      <form
+        className="w-1/2 flex flex-col gap-4"
+        onSubmit={generateNewCategory}
+      >
         <div className="flex flex-col gap-2">
-          <label htmlFor="nome">Nome da categoria</label>
+          <label htmlFor="name">Nome da categoria</label>
           <input
             type="text"
             placeholder="Nome"
-            name="nome"
+            name="name"
             className="border-2 border-slate-700 rounded p-2"
             value={category.name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
           />
-          <label htmlFor="descricao">Descrição da categoria</label>
+          <label htmlFor="description">Descrição da categoria</label>
           <input
             type="text"
             placeholder="Descrição"
-            name="descricao"
+            name="description"
             className="border-2 border-slate-700 rounded p-2"
             value={category.description}
             onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
           />
-          <label htmlFor="foto">Foto da categoria</label>
+          <label htmlFor="photo">Foto da categoria</label>
           <input
-            type="text"
-            placeholder="Link da foto"
-            name="foto"
+            type="file"
+            accept="image/*"
             className="border-2 border-slate-700 rounded p-2"
-            value={category.photo}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
+            onChange={handlePhotoUpload}
           />
         </div>
         <button
