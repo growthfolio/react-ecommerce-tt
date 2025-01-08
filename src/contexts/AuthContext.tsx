@@ -27,9 +27,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
           email: "",
           password: "",
           photo: "",
-          cpfCnpj: "",
+          cpf_cnpj: "",
           type: "",
-          date: new Date(),
           token: "",
         };
   });
@@ -51,7 +50,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
   
-
   function handleLogout() {
     setUser({
       id: 0,
@@ -59,9 +57,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       email: "",
       password: "",
       photo: "",
-      cpfCnpj: "",
+      cpf_cnpj: "",
       type: "",
-      date: new Date(),
       token: "",
     });
     localStorage.removeItem("user");
