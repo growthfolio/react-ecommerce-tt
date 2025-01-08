@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./Home.css";
 // import { Preloader } from "../../components/loader/Preloader";
 import ListProduct from "../../components/products/listProduct/ListProduct";

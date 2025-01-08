@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
 import Category from "../../../models/Category";
 import Product from "../../../models/Product";
-import { fetchData, postData, updateData } from "../../../services/Service";
+import { fetchData, updateData } from "../../../services/Service";
 import { toastAlert } from "../../../utils/ToastAlert";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../config/firebaseConfig";
