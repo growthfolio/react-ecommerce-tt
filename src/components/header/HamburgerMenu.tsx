@@ -1,0 +1,88 @@
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { SignOut, UserSquare, ShoppingCart } from "@phosphor-icons/react";
+
+function HamburgerMenu({ user, logout }) {
+  return (
+    <Menu as="div" className="relative inline-block text-left">
+      <MenuButton className="inline-flex justify-center w-full rounded-md bg-gray-800 px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">
+        ☰
+      </MenuButton>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <MenuItems className="absolute z-10 right-0 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="px-1 py-1">
+            {user.token ? (
+              <>
+                <MenuItem>
+                  {({ active }) => (
+                    <Link
+                      to="/profile"
+                      className={`${
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      <UserSquare size={20} />
+                      <span className="ml-2">Meu Perfil</span>
+                    </Link>
+                  )}
+                </MenuItem>
+                <MenuItem>
+                  {({ active }) => (
+                    <button
+                      onClick={logout}
+                      className={`${
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      <SignOut size={20} />
+                      <span className="ml-2">Sair</span>
+                    </button>
+                  )}
+                </MenuItem>
+              </>
+            ) : (
+              <MenuItem>
+                {({ active }) => (
+                  <Link
+                    to="/login"
+                    className={`${
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    Entrar
+                  </Link>
+                )}
+              </MenuItem>
+            )}
+          </div>
+          <div className="px-1 py-1">
+            <MenuItem>
+              {({ active }) => (
+                <Link
+                  to="/cart"
+                  className={`${
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                >
+                  <ShoppingCart size={20} />
+                  <span className="ml-2">Carrinho</span>
+                </Link>
+              )}
+            </MenuItem>
+          </div>
+        </MenuItems>
+      </Transition>
+    </Menu>
+  );
+}
+
+export default HamburgerMenu;
