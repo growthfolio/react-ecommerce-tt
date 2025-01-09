@@ -13,7 +13,7 @@ function ListCategoryIcons() {
     "suvinil",
     "glasu",
     "eletrica",
-    "seguranca",
+    "segurança",
     "ferragens",
     "hidraulica",
     "pintura",
@@ -38,8 +38,13 @@ function ListCategoryIcons() {
     findCategories();
   }, []);
 
+  // Remover duplicatas baseado no 'name'
+  const uniqueCategories = Array.from(
+    new Map(categories.map((category) => [category.name.toLowerCase(), category])).values()
+  );
+
   // Filtrar e ordenar as categorias
-  const filteredCategories = categories
+  const filteredCategories = uniqueCategories
     .filter((category) => desiredOrder.includes(category.name.toLowerCase()))
     .sort(
       (a, b) =>
