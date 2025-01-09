@@ -1,3 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Yellowtail&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	--toastify-color-light: #fff;
+	--toastify-color-dark: #121212;
+	--toastify-color-info: #00a6ed !important;
+	--toastify-color-success: #7bd389 !important;
+	--toastify-color-warning: #ffd242 !important;
+	--toastify-color-error: #ff5757 !important;
+	--toastify-color-transparent: rgba(255, 255, 255, 0.7);
+
+	--toastify-icon-color-info: var(--toastify-color-info);
+	--toastify-icon-color-success: var(--toastify-color-success);
+	--toastify-icon-color-warning: var(--toastify-color-warning);
+	--toastify-icon-color-error: var(--toastify-color-error);
+
+	--toastify-toast-width: 320px;
+	--toastify-toast-background: #fff;
+	--toastify-toast-min-height: 64px;
+	--toastify-toast-max-height: 800px;
+	--toastify-font-family: sans-serif;
+	--toastify-z-index: 9999;
+
+	--toastify-text-color-light: #757575;
+	--toastify-text-color-dark: #fff;
+}
+
+.input-pesquisa {
+	color: black;
+	background-color: #fafafa;
+}
+
+.input-pesquisa textarea:focus,
+.input-pesquisa input:focus {
+	box-shadow: 0 0 0 0;
+	border: 0 none;
+	outline: 0;
+}
+
+.input-login textarea:focus,
+.input-login input:focus {
+	box-shadow: 0 0 0 0;
+	border: 1 none;
+	outline: 0;
+}
+
+.headerLink {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	/* = font-bold no tailwind */
+	font-size: 16px;
+	/* = text-xl no tailwind (prestar atencao na line height)*/
+}
+
+.headerBtn {
+	font-weight: 500;
+	/* = font-medium no tailwind */
+	font-family: "Roboto", sans-serif;
+	font-size: 16px;
+}
+
+h1 {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 70px;
+	color: #36454F;
+}
+
+h2 {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 50px;
+	color: #3e5622;
+}
+
+h3 {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 40px;
+	color: #36454F;
+}
+
+h4 {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 35px;
+	color: #36454F;
+}
+
+h5 {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 30px;
+	color: #36454F;
+}
+
+h6 {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 25px;
+	/* color: #36454F; */
+}
+
+.textButton {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.paragraph {
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	color: #525c60;
+}
+
+.paragraphBold {
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 700;
+	color: #525c60;
+	/* = font-normal no tailwind */
+}
+
+.fontCategoriaProdutoCard {
+	font-family: "Open Sans", sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	color: #ffffff;
+}
+
+.fontProdutoNameCard {
+	font-family: "Open Sans", sans-serif;
+	font-style: normal;
+	font-weight: 600;
+
+}
+
+.quotes {
+	font-family: "Open Sans", sans-serif;
+	font-size: 20px;
+	font-weight: 700;
+}
