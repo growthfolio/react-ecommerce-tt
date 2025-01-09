@@ -1,25 +1,27 @@
-import { Link } from "react-router-dom";
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Transition,
-} from "@headlessui/react";
-import { useState, useEffect } from "react";
-import Category from "../../models/Category";
-import { fetchData } from "../../services/Service";
+// import { Link } from "react-router-dom";
+// import {
+//   Menu,
+//   MenuButton,
+//   MenuItem,
+//   MenuItems,
+//   Transition,
+// } from "@headlessui/react";
+// import { useState, useEffect } from "react";
+// import Category from "../../models/Category";
+// import { fetchData } from "../../services/Service";
+import ListCategoryIcons from "../categories/iconsCategories/ListCategoryIcons";
 
 function NavbarBottom() {
-  const [categories, setCategories] = useState<Category[]>([]);
+//   const [categories, setCategories] = useState<Category[]>([]);
 
-  useEffect(() => {
-    fetchData("/categories/all", setCategories, { headers: {} });
-  }, []);
+  // useEffect(() => {
+  //   fetchData("/categories/all", setCategories, { headers: {} });
+  // }, []);
 
   return (
-    <nav className="w-full bg-gradient-to-t from-[#070d17] via-[#04080f] to-[#070d17] text-white flex justify-center py-3">
-      <div className="flex gap-10 text-[16px] font-bold">
+    <nav className="w-full bg-gradient-to-t from-[#070d17] via-[#04080f] to-[#070d17] text-white flex justify-center py-1">
+      <ListCategoryIcons />
+      {/* <div className="flex gap-10 text-[16px] font-bold">
         <Link to="/home" className="hover:text-[#f88629]">
           Home
         </Link>
@@ -54,7 +56,7 @@ function NavbarBottom() {
         <Link to="/about" className="hover:text-[#f88629]">
           Sobre
         </Link>
-      </div>
+      </div> */}
     </nav>
   );
 }

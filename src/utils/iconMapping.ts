@@ -1,7 +1,7 @@
 const iconMapping: { [key: string]: string } = {
     Ferramentas: "fas fa-tools",
     Tintas: "fas fa-paint-brush",
-    "Elétricos": "fas fa-bolt",
+    Elétrica: "fas fa-bolt",
     EPI: "fas fa-hard-hat",
     Construção: "fas fa-building",
     Lonas: "fas fa-layer-group",
