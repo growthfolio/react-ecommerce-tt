@@ -26,7 +26,7 @@ function NavbarTop() {
   const { user, handleLogout } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [showSearch, setShowSearch] = useState(false);
+  const [ setShowSearch] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -108,7 +108,7 @@ function NavbarTop() {
   );
 
   return (
-    <div className="w-full bg-gradient-to-t from-[#070d17] via-[#04080f] to-[#04080f] text-white flex flex-col md:flex-row items-center justify-between py-3 px-4 md:px-6">
+    <div className="w-full bg-black text-white flex flex-col md:flex-row items-center justify-between py-3 px-4 md:px-6">
       {/* Logo e elementos do topo */}
       <div className="flex justify-between items-center w-full md:w-auto">
         {/* Logo */}

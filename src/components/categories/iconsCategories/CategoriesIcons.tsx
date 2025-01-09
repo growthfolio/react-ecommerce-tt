@@ -12,7 +12,7 @@ function CategoriesIcons({ category }: CategoriesIconsProps) {
 
   return (
     <Link
-      to={`/categorias/nome/${category.name.toLocaleLowerCase()}`}
+      to={`/categories/name/${category.name.toLocaleLowerCase()}`}
       className="flex flex-col items-center justify-center gap-2 p-2 text-white transition-transform duration-300 hover:scale-105 hover:shadow-lg"
     >
       {/* Ícone */}

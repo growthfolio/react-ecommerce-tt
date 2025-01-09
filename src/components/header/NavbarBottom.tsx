@@ -19,7 +19,7 @@ function NavbarBottom() {
   // }, []);
 
   return (
-    <nav className="w-full bg-gradient-to-t from-[#070d17] via-[#04080f] to-[#070d17] text-white flex justify-center py-1">
+    <nav className="w-full bg-black text-white flex justify-center pt-1">
       <ListCategoryIcons />
       {/* <div className="flex gap-10 text-[16px] font-bold">
         <Link to="/home" className="hover:text-[#f88629]">
