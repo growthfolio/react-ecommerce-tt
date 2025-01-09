@@ -1,50 +1,83 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# React E-Commerce TT
 
-Currently, two official plugins are available:
+Um projeto de e-commerce desenvolvido como teste tecnico com React, Vite e TypeScript, com funcionalidades de gerenciamento de categorias, produtos e autenticação.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Estrutura do Projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+📦react-ecommerce-tt
+ ┣ 📂public/            # Arquivos públicos
+ ┣ 📂src/               # Código-fonte principal
+ ┃ ┣ 📂assets           # Recursos estáticos
+ ┃ ┣ 📂components       # Componentes reutilizáveis
+ ┃ ┣ 📂config           # Configurações (ex.: Firebase)
+ ┃ ┣ 📂contexts         # Gerenciamento de estado global
+ ┃ ┣ 📂models           # Modelos TypeScript (Cart, User, etc.)
+ ┃ ┣ 📂pages            # Páginas (Home, Login, Registro)
+ ┃ ┣ 📂routes           # Rotas (Privadas e Públicas)
+ ┃ ┣ 📂services         # Serviços de API
+ ┃ ┣ 📂utils            # Utilitários e helpers
+ ┃ ┗ 📜App.tsx          # Entrada principal
+ ┣ 📜package.json       # Dependências
+ ┣ 📜vite.config.ts     # Configurações do Vite
+ ┣ 📜tailwind.config.js # Configurações do Tailwind
+ ┗ 📜tsconfig.json      # Configurações do TypeScript
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Principais Funcionalidades
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Categorias**: CRUD de categorias com ícones representativos.  
+- **Produtos**: CRUD de produtos e busca por categorias.  
+- **Autenticação**: Login, registro e modal responsivo.  
+- **Carrinho**: Adicionar/remover produtos com listagem dinâmica.  
+- **Estilização**: Interface responsiva com Tailwind CSS.
+
+---
+
+## Tecnologias
+
+- **Frontend**: React, Tailwind CSS, TypeScript.  
+- **Build Tool**: Vite.  
+- **Backend**: Integração configurada com Firebase.
+
+---
+
+## Como Rodar
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/growthfolio/react-ecommerce-tt.git
+   cd react-ecommerce-tt
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+3. Inicie o servidor:
+   ```bash
+   npm run dev
+   ```
+
+4. Acesse em: `http://localhost:5173`.
+
+---
+
+## Contribuição
+
+1. Faça um fork.  
+2. Crie uma branch: `git checkout -b minha-feature`.  
+3. Faça commit: `git commit -m "Descrição da feature"`.  
+4. Envie: `git push origin minha-feature`.
+
+---
+
+## Licença
+
+Este projeto está sob a licença MIT. Consulte [LICENSE](LICENSE) para mais detalhes.
