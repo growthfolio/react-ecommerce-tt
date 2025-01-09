@@ -2,34 +2,74 @@ import { useEffect, useState } from "react";
 import "../../../index.css";
 import { fetchData } from "../../../services/Service";
 import Category from "../../../models/Category";
-import CategoriesIcons from "./CategoriesIcons";
+import CategoriesIconsImg from "./CategoriesIconsImg";
 
 function ListCategoryIcons() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Ordem desejada das categorias
+  const desiredOrder = [
+    "suvinil",
+    "glasu",
+    "eletrica",
+    "segurança",
+    "ferragens",
+    "hidraulica",
+    "pintura",
+    "promocao",
+  ];
+
+  // Função para buscar categorias
+  const findCategories = async () => {
+    try {
+      await fetchData("/categories/all", setCategories, {
+        headers: {},
+      });
+    } catch (error) {
+      console.error("Erro ao buscar categorias:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // useEffect para carregar categorias
   useEffect(() => {
-    const findCategories = async () => {
-      try {
-        await fetchData("/categories/all", setCategories, {
-          headers: {},
-        });
-      } catch (error) {
-        console.error("Erro ao buscar categorias:", error);
-      }
-    };
-
     findCategories();
   }, []);
 
+  // Remover duplicatas baseado no 'name'
+  const uniqueCategories = Array.from(
+    new Map(categories.map((category) => [category.name.toLowerCase(), category])).values()
+  );
+
+  // Filtrar e ordenar as categorias
+  const filteredCategories = uniqueCategories
+    .filter((category) => desiredOrder.includes(category.name.toLowerCase()))
+    .sort(
+      (a, b) =>
+        desiredOrder.indexOf(a.name.toLowerCase()) -
+        desiredOrder.indexOf(b.name.toLowerCase())
+    );
+
   return (
-    <header className="bg-gradient-to-b from-[#070d17] via-[#04080f] to-[#04080f] py-3 shadow-md w-full z-50">
-      <div className="container mx-auto flex justify-center items-center gap-4 flex-wrap text-center">
-        {categories.length > 0 ? (
-          categories.map((category) => (
-            <CategoriesIcons key={category.id} category={category} />
-          ))
+    <header className="w-full bg-black">
+      <div className="w-full">
+        {isLoading ? (
+          <p className="text-white text-center animate-pulse">
+            Carregando categorias...
+          </p>
         ) : (
-          <p className="text-white animate-pulse">Carregando categorias...</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 h-full">
+            {filteredCategories.map((category) => (
+              <div
+                key={category.id}
+                className="flex items-center justify-center"
+              >
+                <CategoriesIconsImg category={category} />
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </header>

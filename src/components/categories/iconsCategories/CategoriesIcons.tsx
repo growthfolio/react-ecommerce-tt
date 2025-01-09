@@ -8,21 +8,20 @@ interface CategoriesIconsProps {
 }
 
 function CategoriesIcons({ category }: CategoriesIconsProps) {
-  const iconClass = iconMapping[category.name] || "fas fa-question-circle"; // Ícone padrão
+  const iconClass = iconMapping[category.name] || "fas fa-question-circle";
 
   return (
     <Link
-      to={`/categorias/nome/${category.name.toLocaleLowerCase()}`}
-      className="flex flex-col items-center mx-4 text-center text-white transition-transform ease-in-out duration-300 hover:scale-105"
+      to={`/categories/name/${category.name.toLocaleLowerCase()}`}
+      className="flex flex-col items-center justify-center gap-2 p-2 text-white transition-transform duration-300 hover:scale-105 hover:shadow-lg"
     >
       {/* Ícone */}
-      <div className=" mr-1 rounded-none flex items-center justify-center w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px]">
-        <i className={`${iconClass} text-white text-base sm:text-lg md:text-xl`}></i>
-      {/* Nome da Categoria */}
-      <p className="ml-2 mr-2 text-xs sm:text-sm md:text-md font-semibold">
-        {category.name.toUpperCase()}
-      </p>
+      <div className="flex items-center justify-center bg-none rounded-full w-[60px] h-[60px]">
+        <i className={`${iconClass} text-white text-2xl`}></i>
       </div>
+
+      {/* Nome da Categoria */}
+      <p className="text-sm font-semibold uppercase">{category.name}</p>
     </Link>
   );
 }

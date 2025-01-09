@@ -2,7 +2,7 @@
 import "./Home.css";
 // import { Preloader } from "../../components/loader/Preloader";
 import ListProduct from "../../components/products/listProduct/ListProduct";
-import ListCategoryIcons from "../../components/categories/iconsCategories/ListCategoryIcons";
+// import ListCategoryIcons from "../../components/categories/iconsCategories/ListCategoryIcons";
 import Carousel from "../../utils/Carousel";
 import carouselMock from "../../utils/carouselMock";
 
@@ -35,7 +35,7 @@ function Home() {
             </div>
           </div> */}
         </section>
-        <ListCategoryIcons />
+        {/* <ListCategoryIcons /> */}
         {/* Título para os produtos */}
         <section className="w-ful flex justify-center items-center mt-[50px]  mb-[40px] ">
           <div className="flex gap-4 ">
