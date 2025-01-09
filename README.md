@@ -43,7 +43,8 @@ Um projeto de e-commerce desenvolvido como teste tecnico com React, Vite e TypeS
 
 - **Frontend**: React, Tailwind CSS, TypeScript.  
 - **Build Tool**: Vite.  
-- **Backend**: Integração configurada com Firebase.
+- **Backend**: Integração com Spring, Mysql para ambiente de desenvolvimento, PostgreSql  para o deploy e Firebase Storage para armazenamento de imagens.
+Verifique o backend em  [Spring-ecommerce-tt](https://github.com/growthfolio/spring-ecommerce-tt)
 
 ---
 
