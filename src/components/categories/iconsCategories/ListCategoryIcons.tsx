@@ -9,16 +9,17 @@ function ListCategoryIcons() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Ordem desejada das categorias
-  const desiredOrder = [
-    "suvinil",
-    "glasu",
-    "eletrica",
-    "segurança",
-    "ferragens",
-    "hidraulica",
-    "pintura",
-    "promocao",
-  ];
+const desiredOrder = [
+  "suvinil",
+  "glasu",
+  "eletrica",
+  "segurança",
+  "ferragens",
+  "hidráulica",
+  "pintura",
+  "promoção",
+];
+
 
   // Função para buscar categorias
   const findCategories = async () => {

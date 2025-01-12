@@ -26,7 +26,7 @@ function NavbarTop() {
   const { user, handleLogout } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [ setShowSearch] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -113,7 +113,7 @@ function NavbarTop() {
       <div className="flex justify-between items-center w-full md:w-auto">
         {/* Logo */}
         <Link to="/home" className="flex items-center">
-          <img src={Logo} alt="Logo Safari" className="w-16 md:w-20" />
+          <img src={Logo} alt="Logo Safari" className="w-25 md:w-20" />
         </Link>
 
         {/* Ícones do menu e pesquisa */}

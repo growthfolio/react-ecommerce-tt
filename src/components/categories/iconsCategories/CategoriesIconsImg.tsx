@@ -10,7 +10,7 @@ interface CategoriesIconsProps {
 function CategoriesIcons({ category }: CategoriesIconsProps) {
   const { imgPath } = iconMapping[category.name] || {
     iconClass: "fas fa-question-circle",
-    imgPath: "src/assets/category/icons/default-categoria.jpeg",
+    imgPath: "src/assets/category/icons/default.jpeg",
   };
 
   return (
