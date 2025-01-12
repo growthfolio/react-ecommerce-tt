@@ -19,24 +19,24 @@ const iconMapping: { [key: string]: { iconClass: string; imgPath: string } } = {
     iconClass: "fas fa-building", 
     imgPath: "src/assets/category/icons/construcao-categoria.jpeg" 
   },
+  Suvinil: { 
+    iconClass: "fas fa-screwdriver", 
+    imgPath: "src/assets/category/icons/suvinil.jpeg" 
+  },
   Lonas: { 
     iconClass: "fas fa-layer-group", 
     imgPath: "src/assets/category/icons/lonas-categoria.jpeg" 
   },
-  Hidraulica: { 
+  Hidráulica: { 
     iconClass: "fas fa-water", 
     imgPath: "src/assets/category/icons/hidraulica.jpeg" 
-  },
-  Suvinil: { 
-    iconClass: "fas fa-screwdriver", 
-    imgPath: "src/assets/category/icons/suvinil.jpeg" 
   },
   Glasu: { 
     iconClass: "fas fa-lightbulb", 
     imgPath: "src/assets/category/icons/glasu.jpeg" 
   },
-  Promocao: { 
-    iconClass: "fas fa-seedling", 
+  Promoção: { 
+    iconClass: "fas fa-tag", 
     imgPath: "src/assets/category/icons/promocao.jpeg" 
   },
 };

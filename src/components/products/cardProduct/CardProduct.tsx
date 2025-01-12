@@ -17,31 +17,34 @@ function CardProduct({ product, category }: CardProductProps) {
 
   const toggleLike = () => {
     setLiked(!liked);
-    setLikes(likes + (liked ? -1 : 1));
+    setLikes((prevLikes) => prevLikes + (liked ? -1 : 1));
   };
 
   const handleAddToCart = async () => {
     if (!user || !user.id || !user.token) {
-      toastAlert("Você precisa estar logado para adicionar produtos ao carrinho.", "error");
+      toastAlert(
+        "Você precisa estar logado para adicionar produtos ao carrinho.",
+        "error"
+      );
       return;
     }
 
     try {
-      // Busca o carrinho do usuário para obter o `cartId`
       const cart = await fetchCartByUserId(user.id, user.token);
-
       if (!cart || !cart.id) {
         toastAlert("Erro ao recuperar o carrinho do usuário.", "error");
         return;
       }
 
-      const cartId = cart.id;
-      const productId = product.id;
-      const quantity = 1;
-      const unitPrice = product.price;
+      await addToCart(
+        user.id,
+        cart.id,
+        product.id,
+        1,
+        product.price,
+        user.token
+      );
 
-      // Adiciona o item ao carrinho
-      await addToCart(user.id, cartId, productId, quantity, unitPrice, user.token);
       toastAlert(`${product.name} foi adicionado ao carrinho!`, "success");
     } catch (error) {
       console.error("Erro ao adicionar produto ao carrinho:", error);
@@ -57,38 +60,37 @@ function CardProduct({ product, category }: CardProductProps) {
   return (
     <article className="flex flex-col rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white">
       <div className="p-3">
-        <header>
-          <div className="text-darkBlue h-min rounded-md text-center mb-3">
-            <p className="text-white bg-darkMossGreen p-1 px-2 fontcategoryProdutoCard w-max font-bold capitalize">
+        <header className="mb-3">
+          <div className="text-darkBlue rounded-md text-center">
+            <p className="text-white bg-darkMossGreen p-1 px-2 font-bold capitalize w-max rounded-md">
               {category}
             </p>
           </div>
-          <img
-            src={product.photo || "https://via.placeholder.com/275x200"}
-            className="w-[275px] h-[200px] object-cover rounded-md"
-            alt={`Foto do produto ${product.name}`}
-          />
+          <div className="mx-auto w-[275px] h-[200px] bg-gray-100 flex items-center justify-center rounded-md overflow-hidden">
+            <img
+              src={product.photo || "https://via.placeholder.com/275x200"}
+              className="object-contain w-full h-full"
+              alt={`Foto do produto ${product.name}`}
+            />
+          </div>
         </header>
 
-        <section className="flex flex-col flex-grow px-2">
-          <p className="fontProdutoNameCard text-[16px] text-darkMossGreen capitalize my-1">
+        <section className="flex flex-col px-2">
+          <p className="text-[16px] text-darkMossGreen font-bold capitalize my-1">
             {product.name}
           </p>
-          <div>
-            <hr />
-          </div>
           <p
             className="text-sm text-gray-600"
             title={product.description}
           >
             {truncateDescription(product.description, 60)}
           </p>
-          <div className="flex justify-between items-center fontProdutoNameCard text-[15px] text-darkMossGreen mt-2">
+          <div className="flex justify-between items-center mt-2">
             <p className="font-bold text-lg text-primaryColor">
-              R${product.price}
+              R${product.price.toFixed(2)}
             </p>
             <button
-              className="flex items-center gap-1 font-semibold transition-transform transform hover:scale-110"
+              className="flex items-center gap-1 transition-transform transform hover:scale-110"
               onClick={toggleLike}
               aria-label={liked ? "Descurtir produto" : "Curtir produto"}
             >
@@ -105,8 +107,8 @@ function CardProduct({ product, category }: CardProductProps) {
         <button
           onClick={handleAddToCart}
           className="flex w-full items-center justify-center gap-2 px-4 py-2 
-          bg-[#f88629] text-white font-semibold rounded-lg rounded-b-none shadow-md 
-          transition-transform transform hover:bg-[#00923f]"
+          bg-[#f88629] text-white font-semibold rounded-lg shadow-md 
+          transition-transform transform hover:bg-[#00923f] hover:scale-105"
           aria-label={`Adicionar ${product.name} ao carrinho`}
         >
           <ShoppingCart size={20} />
