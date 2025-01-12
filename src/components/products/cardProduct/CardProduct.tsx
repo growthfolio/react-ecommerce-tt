@@ -12,12 +12,16 @@ interface CardProductProps {
 
 function CardProduct({ product, category }: CardProductProps) {
   const { user } = useContext(AuthContext);
-  const [liked, setLiked] = useState(false);
+
+  const [liked, setLiked] = useState(!!product.likes); // Inicializa com base no estado atual
   const [likes, setLikes] = useState(product.likes);
 
   const toggleLike = () => {
-    setLiked(!liked);
-    setLikes((prevLikes) => prevLikes + (liked ? -1 : 1));
+    setLiked((prevLiked) => {
+      const isLiked = !prevLiked;
+      setLikes((prevLikes) => prevLikes + (isLiked ? 1 : -1));
+      return isLiked;
+    });
   };
 
   const handleAddToCart = async () => {
@@ -79,10 +83,7 @@ function CardProduct({ product, category }: CardProductProps) {
           <p className="text-[16px] text-darkMossGreen font-bold capitalize my-1">
             {product.name}
           </p>
-          <p
-            className="text-sm text-gray-600"
-            title={product.description}
-          >
+          <p className="text-sm text-gray-600" title={product.description}>
             {truncateDescription(product.description, 60)}
           </p>
           <div className="flex justify-between items-center mt-2">
@@ -92,13 +93,18 @@ function CardProduct({ product, category }: CardProductProps) {
             <button
               className="flex items-center gap-1 transition-transform transform hover:scale-110"
               onClick={toggleLike}
-              aria-label={liked ? "Descurtir produto" : "Curtir produto"}
+              aria-label={
+                liked
+                  ? `Descurtir produto ${product.name}`
+                  : `Curtir produto ${product.name}`
+              }
             >
               <Star
                 size={22}
                 color={liked ? "#FFD700" : "#ccc"}
                 weight={liked ? "fill" : "regular"}
               />
+              <span className="text-gray-600 text-sm">{likes}</span>
             </button>
           </div>
         </section>

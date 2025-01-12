@@ -2,8 +2,18 @@ import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/r
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { SignOut, UserSquare, ShoppingCart } from "@phosphor-icons/react";
+import UsuarioLogin from "../../models/UserLogin";
 
-function HamburgerMenu({ user, logout }) {
+interface HamburgerMenuProps {
+
+  user: UsuarioLogin;
+
+  logout: () => void;
+
+}
+
+
+function HamburgerMenu({ user, logout }: HamburgerMenuProps) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <MenuButton className="inline-flex justify-center w-full rounded-md bg-gray-800 px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">

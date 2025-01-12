@@ -26,7 +26,6 @@ function NavbarTop() {
   const { user, handleLogout } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -41,10 +40,13 @@ function NavbarTop() {
   }
 
   function handleSearch() {
-    if (searchTerm) {
-      navigate(`/products/names/${searchTerm}`);
-      setShowSearch(false);
+    if (searchTerm.trim() === "") {
+      toastAlert("Digite algo para pesquisar.", "warning");
+      return;
     }
+
+    navigate(`/products/names/${searchTerm}`);
+    setSearchTerm("");
   }
 
   const userDropdown = user.token ? (
@@ -115,87 +117,35 @@ function NavbarTop() {
         <Link to="/home" className="flex items-center">
           <img src={Logo} alt="Logo Safari" className="w-25 md:w-20" />
         </Link>
-
-        {/* Ícones do menu e pesquisa */}
-        <div className="flex items-center gap-4">
-          {isMobile && (
-            <div className="flex ">
-              <div className="flex mr-6 items-center justify-center md:mt-0">
-                <div className="flex items-center bg-seasalt rounded-full border w-full max-w-2xl lg:max-w-xl md:max-w-lg sm:max-w-md">
-                  <input
-                    type="text"
-                    placeholder="Pesquisar"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="flex-grow ml-2 px-1 py-2 rounded-full text-black focus:outline-none text-sm md:text-base"
-                  />
-                  <button
-                    onClick={handleSearch}
-                    className="bg-emerald p-2 rounded-full flex justify-center items-center"
-                  >
-                    <MagnifyingGlass size={24} />
-                  </button>
-                </div>
-              </div>
-              {/* <button
-                onClick={() => setShowSearch(!showSearch)}
-                className="bg-emerald p-2 rounded-full flex justify-center items-center"
-              >
-                <MagnifyingGlass size={24} />
-              </button>
-              {showSearch && (
-                <div className="absolute top-12 right-0 w-72 bg-seasalt rounded-md shadow-lg p-3">
-                  <div className="flex items-center border rounded-md">
-                    <input
-                      type="text"
-                      placeholder="Pesquisar"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="flex-grow px-2 py-1 rounded-l-md text-black focus:outline-none text-sm"
-                    />
-                    <button
-                      onClick={handleSearch}
-                      className="bg-emerald p-2 rounded-r-md flex justify-center items-center"
-                    >
-                      <MagnifyingGlass size={20} />
-                    </button>
-                  </div>
-                </div>
-              )} */}
-              {isMobile && (
-                <div className="md:hidden">
-                  <HamburgerMenu user={user} logout={logout} />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+        {isMobile && (
+          <HamburgerMenu user={user} logout={logout} />
+        )}
       </div>
 
       {/* Barra de pesquisa */}
-      {!isMobile && (
-        <div className="flex flex-1 justify-center mt-3 md:mt-0">
-          <div className="flex items-center bg-seasalt rounded-full border w-full max-w-2xl lg:max-w-xl md:max-w-lg sm:max-w-md">
-            <input
-              type="text"
-              placeholder="Pesquisar"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-grow ml-2 px-1 py-2 rounded-full text-black focus:outline-none text-sm md:text-base"
-            />
-            <button
-              onClick={handleSearch}
-              className="bg-emerald p-2 rounded-full flex justify-center items-center"
-            >
-              <MagnifyingGlass size={24} />
-            </button>
-          </div>
+      <div className={`flex flex-1 ${isMobile ? "hidden" : "justify-center"}`}>
+        <div className="flex items-center bg-seasalt rounded-full border w-full max-w-2xl lg:max-w-xl md:max-w-lg sm:max-w-md">
+          <input
+            type="text"
+            placeholder="Pesquisar"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="flex-grow ml-2 px-1 py-2 rounded-full text-black focus:outline-none text-sm md:text-base"
+            aria-label="Pesquisar produtos"
+          />
+          <button
+            onClick={handleSearch}
+            className="bg-emerald p-2 rounded-full flex justify-center items-center"
+            aria-label="Iniciar busca"
+          >
+            <MagnifyingGlass size={24} />
+          </button>
         </div>
-      )}
+      </div>
 
       {/* Botões do usuário e carrinho */}
       {!isMobile && (
-        <div className="flex items-center gap-6 mt-3 md:mt-0">
+        <div className="flex items-center gap-6">
           <Menu as="div" className="relative inline-block">
             <MenuButton className="flex items-center gap-1 text-white">
               <User size={22} color="#f7f7f7" weight="light" />
@@ -205,7 +155,8 @@ function NavbarTop() {
           </Menu>
           <Link
             to="/cart"
-            className="flex items-center gap-2 p-2 rounded-md text-black"
+            className="flex items-center gap-2 p-2 rounded-md"
+            aria-label="Ir para o carrinho"
           >
             <ShoppingCart size={22} color="#f7f7f7" weight="light" />
           </Link>
