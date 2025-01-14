@@ -70,7 +70,7 @@ function CardProduct({ product, category }: CardProductProps) {
               {category}
             </p>
           </div>
-          <div className="mx-auto w-[275px] h-[200px] bg-gray-100 flex items-center justify-center rounded-md overflow-hidden">
+          <div className="mx-auto w-[275px] h-[200px] flex items-center justify-center rounded-md overflow-hidden">
             <img
               src={product.photo || "https://via.placeholder.com/275x200"}
               className="object-contain w-full h-full"

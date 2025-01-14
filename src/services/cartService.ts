@@ -1,30 +1,53 @@
-import { toastAlert } from "../utils/ToastAlert";
+import Cart from "../models/Cart";
 import CartItem from "../models/CartItem";
+import { toastAlert } from "../utils/ToastAlert";
 
+// URL base da API
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL + '/carts/user';
 
+
+// Função utilitária para requisições à API
+const apiRequest = async <T>(
+  url: string,
+  method: string,
+  token: string,
+  body?: object
+): Promise<T> => {
+  if (!token) {
+    throw new Error("Token não fornecido.");
+  }
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `${token}`,
+  };
+
+  const options: RequestInit = {
+    method,
+    headers,
+  };
+
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+
+  const response = await fetch(url, options);
+  console.log('headers:', headers, 'options:', options, 'response:', response,'body:', body, 'url:', url);
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error("Erro na requisição:", errorData);
+    throw new Error(errorData.message || "Erro na requisição.");
+  }
+
+  return response.json();
+};
+
+// Serviço: Buscar itens do carrinho
 export const fetchCartItems = async (userId: number, token: string): Promise<CartItem[]> => {
   try {
-    console.log("Buscando itens do carrinho para o usuário:", userId);
-    console.log("Token JWT enviado:", token);
-    const response = await fetch(`${API_BASE_URL}/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      console.log("Erro ao buscar itens do carrinho:", response);
-      const errorData = await response.json();
-      console.error("Erro ao buscar itens do carrinho:", errorData);
-      throw new Error(errorData.message || "Erro ao buscar itens do carrinho.");
-    }
-
-    const cartData = await response.json();
-    console.log("Itens do carrinho carregados:", cartData.cartItems || []);
-    return cartData.cartItems || []; // Retorna os itens do carrinho
+    const url = `${API_BASE_URL}/${userId}`;
+    const cartData = await apiRequest<Cart>(url, "GET", token);
+    return cartData.cartItems || [];
   } catch (error) {
     console.error("Erro ao carregar o carrinho:", error);
     toastAlert("Erro ao carregar o carrinho.", "error");
@@ -32,33 +55,18 @@ export const fetchCartItems = async (userId: number, token: string): Promise<Car
   }
 };
 
-export const fetchCartByUserId = async (userId: number, token: string): Promise<any> => {
-  console.log("Token JWT enviado:", token);
+// Serviço: Buscar carrinho completo
+export const fetchCartByUserId = async (userId: number, token: string): Promise<Cart> => {
   try {
-    console.log("Buscando carrinho do usuário:", userId);
-    const response = await fetch(`${API_BASE_URL}/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erro ao buscar carrinho do usuário:", errorData);
-      throw new Error(errorData.message || "Erro ao buscar carrinho.");
-    }
-
-    const cartData = await response.json();
-    console.log("Carrinho carregado:", cartData);
-    return cartData; // Retorna o objeto completo do carrinho
+    const url = `${API_BASE_URL}/${userId}`;
+    return await apiRequest<Cart>(url, "GET", token);
   } catch (error) {
     console.error("Erro ao buscar carrinho:", error);
     throw error;
   }
 };
 
+// Serviço: Adicionar ao carrinho
 export const addToCart = async (
   userId: number,
   cartId: number,
@@ -67,43 +75,17 @@ export const addToCart = async (
   unitPrice: number,
   token: string
 ): Promise<CartItem[]> => {
-  if (!userId || userId <= 0) {
-    throw new Error("ID do usuário inválido.");
-  }
-
   try {
-    console.log("Token JWT enviado:", token);
-    console.log("Enviando requisição para adicionar ao carrinho:", {
-      userId,
-      cartId,
-      productId,
+    const url = `${API_BASE_URL}/${userId}/add`;
+    const body = {
+      cart: { id: cartId },
+      product: { id: productId },
       quantity,
       unitPrice,
-    });
+    };
 
-    const response = await fetch(`${API_BASE_URL}/${userId}/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        cart: { id: cartId },
-        product: { id: productId },
-        quantity,
-        unitPrice,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erro ao adicionar item ao carrinho:", errorData);
-      throw new Error(errorData.message || "Erro ao adicionar item ao carrinho.");
-    }
-
-    const updatedCart = await response.json();
-    console.log("Carrinho atualizado após adição:", updatedCart.items);
-    return updatedCart.items;
+    const updatedCart = await apiRequest<Cart>(url, "POST", token, body);
+    return updatedCart.cartItems;
   } catch (error) {
     console.error("Erro ao adicionar item ao carrinho:", error);
     toastAlert("Erro ao adicionar produto ao carrinho.", "error");
@@ -111,28 +93,17 @@ export const addToCart = async (
   }
 };
 
-
-  
-export const updateCartItem = async (userId: number, cartItemId: number, quantity: number, token: string): Promise<CartItem[]> => {
+// Serviço: Atualizar item do carrinho
+export const updateCartItem = async (
+  userId: number,
+  cartItemId: number,
+  quantity: number,
+  token: string
+): Promise<CartItem[]> => {
   try {
-    console.log("Atualizando quantidade de item no carrinho:", { userId, cartItemId, quantity });
-    const response = await fetch(`${API_BASE_URL}/${userId}/update/${cartItemId}?quantity=${quantity}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`, // Adiciona o token no cabeçalho
-      },
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erro ao atualizar quantidade no carrinho:", errorData);
-      throw new Error(errorData.message || "Erro ao atualizar quantidade.");
-    }
-
-    const updatedCart = await response.json();
-    console.log("Carrinho atualizado após alteração de quantidade:", updatedCart.items);
-    return updatedCart.items;
+    const url = `${API_BASE_URL}/${userId}/update/${cartItemId}?quantity=${quantity}`;
+    const updatedCart = await apiRequest<Cart>(url, "PUT", token);
+    return updatedCart.cartItems;
   } catch (error) {
     console.error("Erro ao atualizar quantidade no carrinho:", error);
     toastAlert("Erro ao atualizar quantidade no carrinho.", "error");
@@ -140,24 +111,15 @@ export const updateCartItem = async (userId: number, cartItemId: number, quantit
   }
 };
 
-export const removeCartItem = async (userId: number, cartItemId: number, token: string): Promise<void> => {
+// Serviço: Remover item do carrinho
+export const removeCartItem = async (
+  userId: number,
+  cartItemId: number,
+  token: string
+): Promise<void> => {
   try {
-    console.log("Removendo item do carrinho:", { userId, cartItemId });
-    const response = await fetch(`${API_BASE_URL}/${userId}/remove/${cartItemId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`, // Adiciona o token no cabeçalho
-      },
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erro ao remover item do carrinho:", errorData);
-      throw new Error(errorData.message || "Erro ao remover item.");
-    }
-
-    console.log("Item removido do carrinho com sucesso.");
+    const url = `${API_BASE_URL}/${userId}/remove/${cartItemId}`;
+    await apiRequest<void>(url, "DELETE", token);
     toastAlert("Item removido do carrinho.", "info");
   } catch (error) {
     console.error("Erro ao remover item do carrinho:", error);
