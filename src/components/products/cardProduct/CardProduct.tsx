@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
-import { ShoppingCart, Star } from "@phosphor-icons/react";
-import Product from "../../../models/Product";
-import { toastAlert } from "../../../utils/ToastAlert";
-import { addToCart, fetchCartByUserId } from "../../../services/cartService";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { useState, useContext } from 'react';
+import { ShoppingCart, Star } from '@phosphor-icons/react';
+import Product from '../../../models/Product';
+import { toastAlert } from '../../../utils/ToastAlert';
+import { addToCart, fetchCartByUserId } from '../../../services/cartService';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 interface CardProductProps {
   product: Product;
@@ -27,8 +27,8 @@ function CardProduct({ product, category }: CardProductProps) {
   const handleAddToCart = async () => {
     if (!user || !user.id || !user.token) {
       toastAlert(
-        "Você precisa estar logado para adicionar produtos ao carrinho.",
-        "error"
+        'Você precisa estar logado para adicionar produtos ao carrinho.',
+        'error',
       );
       return;
     }
@@ -36,7 +36,7 @@ function CardProduct({ product, category }: CardProductProps) {
     try {
       const cart = await fetchCartByUserId(user.id, user.token);
       if (!cart || !cart.id) {
-        toastAlert("Erro ao recuperar o carrinho do usuário.", "error");
+        toastAlert('Erro ao recuperar o carrinho do usuário.', 'error');
         return;
       }
 
@@ -46,19 +46,19 @@ function CardProduct({ product, category }: CardProductProps) {
         product.id,
         1,
         product.price,
-        user.token
+        user.token,
       );
 
-      toastAlert(`${product.name} foi adicionado ao carrinho!`, "success");
+      toastAlert(`${product.name} foi adicionado ao carrinho!`, 'success');
     } catch (error) {
-      console.error("Erro ao adicionar produto ao carrinho:", error);
-      toastAlert("Erro ao adicionar produto ao carrinho.", "error");
+      console.error('Erro ao adicionar produto ao carrinho:', error);
+      toastAlert('Erro ao adicionar produto ao carrinho.', 'error');
     }
   };
 
   const truncateDescription = (description: string, maxLength: number) =>
     description.length > maxLength
-      ? description.substring(0, maxLength) + "..."
+      ? description.substring(0, maxLength) + '...'
       : description;
 
   return (
@@ -72,7 +72,7 @@ function CardProduct({ product, category }: CardProductProps) {
           </div>
           <div className="mx-auto w-[275px] h-[200px] flex items-center justify-center rounded-md overflow-hidden">
             <img
-              src={product.photo || "https://via.placeholder.com/275x200"}
+              src={product.photo || 'https://via.placeholder.com/275x200'}
               className="object-contain w-full h-full"
               alt={`Foto do produto ${product.name}`}
             />
@@ -101,8 +101,8 @@ function CardProduct({ product, category }: CardProductProps) {
             >
               <Star
                 size={22}
-                color={liked ? "#FFD700" : "#ccc"}
-                weight={liked ? "fill" : "regular"}
+                color={liked ? '#FFD700' : '#ccc'}
+                weight={liked ? 'fill' : 'regular'}
               />
               <span className="text-gray-600 text-sm">{likes}</span>
             </button>

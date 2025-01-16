@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import "../../../index.css";
-import iconMapping from "../../../utils/iconMapping";
-import Category from "../../../models/Category";
+import { Link } from 'react-router-dom';
+import '../../../index.css';
+import iconMapping from '../../../utils/iconMapping';
+import Category from '../../../models/Category';
 
 interface CategoriesIconsProps {
   category: Category;
 }
 
 function CategoriesIcons({ category }: CategoriesIconsProps) {
-  const iconClass = iconMapping[category.name] || "fas fa-question-circle";
+  const iconClass = iconMapping[category.name] || 'fas fa-question-circle';
 
   return (
     <Link

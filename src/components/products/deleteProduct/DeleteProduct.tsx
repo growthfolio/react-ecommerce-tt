@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
-import Product from "../../../models/Product";
-import { deleteData, fetchData } from "../../../services/Service";
-import { toastAlert } from "../../../utils/ToastAlert";
-
+import { useContext, useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Product from '../../../models/Product';
+import { deleteData, fetchData } from '../../../services/Service';
+import { toastAlert } from '../../../utils/ToastAlert';
 
 interface DeleteProductProps {
   id: number;
@@ -30,17 +29,17 @@ function DeleteProduct({ id }: DeleteProductProps) {
         },
       });
     } catch (error: any) {
-      if (error.toString().includes("403")) {
-        toastAlert("O token expirou, favor logar novamente", "info");
+      if (error.toString().includes('403')) {
+        toastAlert('O token expirou, favor logar novamente', 'info');
         handleLogout();
       }
     }
   }
 
   useEffect(() => {
-    if (token === "") {
-      toastAlert("Você precisa estar logado", "info");
-      navigate("/login");
+    if (token === '') {
+      toastAlert('Você precisa estar logado', 'info');
+      navigate('/login');
     }
   }, [token]);
 
@@ -52,7 +51,7 @@ function DeleteProduct({ id }: DeleteProductProps) {
   }, [id]);
 
   function BackToProductList() {
-    navigate("/products/all");
+    navigate('/products/all');
   }
 
   async function deleteThisProduct() {
@@ -65,9 +64,9 @@ function DeleteProduct({ id }: DeleteProductProps) {
         },
       });
 
-      toastAlert("Produto apagado com sucesso", "sucesso");
+      toastAlert('Produto apagado com sucesso', 'sucesso');
     } catch (error) {
-      toastAlert("Erro ao apagar o produto", "erro");
+      toastAlert('Erro ao apagar o produto', 'erro');
     }
 
     setIsLoading(false);
@@ -82,12 +81,14 @@ function DeleteProduct({ id }: DeleteProductProps) {
       </p>
 
       <div className="bg-seasalt flex flex-col rounded-2xl overflow-hidden justify-between shadow-lg">
-        <h6 className="mt-4 px-6 text-black text-lg">
-          Seu Produto:
-        </h6>
+        <h6 className="mt-4 px-6 text-black text-lg">Seu Produto:</h6>
         <div className="p-4">
-          <p className="text-2xl h-full font-medium m-2 uppercase">{product.name}</p>
-          <p className="text-xl h-full font-medium m-2">{product.description}</p>
+          <p className="text-2xl h-full font-medium m-2 uppercase">
+            {product.name}
+          </p>
+          <p className="text-xl h-full font-medium m-2">
+            {product.description}
+          </p>
         </div>
         <div className="flex">
           <button

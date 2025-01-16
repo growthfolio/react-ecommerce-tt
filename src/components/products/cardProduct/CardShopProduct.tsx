@@ -1,7 +1,6 @@
-import coracao from "../../../assets/icons/heart.svg";
-import Product from "../../../models/Product";
-import ModalProduct from "../modalProduct/ModalProduct";
-
+import coracao from '../../../assets/icons/heart.svg';
+import Product from '../../../models/Product';
+import ModalProduct from '../modalProduct/ModalProduct';
 
 interface CardShopProductProps {
   product: Product;

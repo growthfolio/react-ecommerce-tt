@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import Category from "../../../models/Category";
+import { Link } from 'react-router-dom';
+import Category from '../../../models/Category';
 
 interface MenuCategoriesProps {
   category: Category;

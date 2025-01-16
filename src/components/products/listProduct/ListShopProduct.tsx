@@ -1,8 +1,7 @@
-import { LineWave } from "react-loader-spinner";
-import User from "../../../models/User";
-import ModalProduct from "../modalProduct/ModalProduct";
-import CardShopProduct from "../cardProduct/CardShopProduct";
-
+import { LineWave } from 'react-loader-spinner';
+import User from '../../../models/User';
+import ModalProduct from '../modalProduct/ModalProduct';
+import CardShopProduct from '../cardProduct/CardShopProduct';
 
 interface CardProductProps {
   user: User;

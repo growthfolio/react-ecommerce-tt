@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { LineWave } from "react-loader-spinner";
-import { AuthContext } from "../../../contexts/AuthContext";
-import Product from "../../../models/Product";
-import { fetchData } from "../../../services/Service";
-import { toastAlert } from "../../../utils/ToastAlert";
-import CardProduct from "../cardProduct/CardProduct";
-
+import { useContext, useEffect, useState } from 'react';
+import { LineWave } from 'react-loader-spinner';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Product from '../../../models/Product';
+import { fetchData } from '../../../services/Service';
+import { toastAlert } from '../../../utils/ToastAlert';
+import CardProduct from '../cardProduct/CardProduct';
 
 function ListProduct() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -14,10 +13,10 @@ function ListProduct() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        await fetchData("/products/all", setProducts, {});
+        await fetchData('/products/all', setProducts, {});
       } catch (error: any) {
-        if (error.toString().includes("403")) {
-          toastAlert("O token expirou, favor logar novamente", "info");
+        if (error.toString().includes('403')) {
+          toastAlert('O token expirou, favor logar novamente', 'info');
           handleLogout();
         }
       }
@@ -43,7 +42,7 @@ function ListProduct() {
           <CardProduct
             key={product.id}
             product={product}
-            category={product.category?.name || "Unknown Category"}
+            category={product.category?.name || 'Unknown Category'}
           />
         ))}
       </div>

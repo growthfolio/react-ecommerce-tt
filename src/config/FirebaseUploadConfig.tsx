@@ -2,7 +2,6 @@
 // import { ChangeEvent } from "react";
 // import { storage } from "./firebaseConfig";
 
-
 // function handleFileUpload(e: ChangeEvent<HTMLInputElement>) {
 //     const file = e.target.files?.[0];
 //     if (file) {
@@ -21,4 +20,3 @@
 //         });
 //     }
 //   }
-  

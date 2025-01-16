@@ -1,41 +1,53 @@
-import { ArrowCircleRight, UploadSimple } from "@phosphor-icons/react";
-import { ChangeEvent, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { Link, useNavigate } from "react-router-dom";
-import CadastroImage from "../../assets/Logo.png";
-import "./../../index.css";
-import User from "../../models/User";
-import { toastAlert } from "../../utils/ToastAlert";
-import { registerUser } from "../../services/Service";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../config/firebaseConfig";
+import {
+  ArrowCircleRight,
+  CaretDown,
+  CheckCircle,
+  UploadSimple,
+} from '@phosphor-icons/react';
+import { ChangeEvent, Fragment, useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import { Link, useNavigate } from 'react-router-dom';
+import CadastroImage from '../../assets/Logo.png';
+import './../../index.css';
+import User from '../../models/User';
+import { toastAlert } from '../../utils/ToastAlert';
+import { registerUser } from '../../services/Service';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../config/firebaseConfig';
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Transition,
+} from '@headlessui/react';
 
-// const options = [
-//   { type: "cliente", displayType: "Quero comprar", textPlaceholder: "CPF" },
-//   { type: "admin", displayType: "Quero vender", textPlaceholder: "CNPJ" },
-// ];
+const options = [
+  { type: 'cliente', displayType: 'Quero comprar', textPlaceholder: 'CPF' },
+  { type: 'admin', displayType: 'Quero vender', textPlaceholder: 'CNPJ' },
+];
 
 function Register() {
   const navigate = useNavigate();
 
-  // const [selectedOption, setSelectedOption] = useState(options[0]);
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
 
   const [user, setUser] = useState<User>({
-    name: "",
-    email: "",
-    password: "",
-    photo: "",
-    cpf_cnpj: "",
-    type: "cliente",
+    name: '',
+    email: '',
+    password: '',
+    photo: '',
+    cpf_cnpj: '',
+    type: 'cliente',
   });
 
   const [userResponse, setUserResponse] = useState<User | null>(null);
 
   useEffect(() => {
     if (userResponse) {
-      navigate("/login");
+      navigate('/login');
     }
   }, [userResponse, navigate]);
 
@@ -46,8 +58,8 @@ function Register() {
     if (file) {
       setSelectedFile(file); // Armazena o arquivo localmente
       toastAlert(
-        "Arquivo selecionado. Envie o formulário para concluir o upload.",
-        "info"
+        'Arquivo selecionado. Envie o formulário para concluir o upload.',
+        'info',
       );
     }
   }
@@ -109,25 +121,25 @@ function Register() {
 
         const userToRegister = { ...user, photo: photoUrl };
         console.log(
-          "Corpo da requisição:",
-          JSON.stringify(userToRegister, null, 2)
+          'Corpo da requisição:',
+          JSON.stringify(userToRegister, null, 2),
         );
 
         await registerUser(`/users/register`, userToRegister, setUserResponse);
-        toastAlert("Usuário cadastrado com sucesso", "sucesso");
+        toastAlert('Usuário cadastrado com sucesso', 'sucesso');
       } catch (error) {
-        console.error("Erro ao cadastrar usuário:", error);
-        toastAlert("Erro ao cadastrar o Usuário", "erro");
+        console.error('Erro ao cadastrar usuário:', error);
+        toastAlert('Erro ao cadastrar o Usuário', 'erro');
       } finally {
         setIsLoading(false);
       }
     } else {
       toastAlert(
-        "Dados inconsistentes. Verifique as informações de cadastro.",
-        "erro"
+        'Dados inconsistentes. Verifique as informações de cadastro.',
+        'erro',
       );
-      setUser({ ...user, password: "" });
-      setConfirmPassword("");
+      setUser({ ...user, password: '' });
+      setConfirmPassword('');
       setIsLoading(false);
     }
   }
@@ -208,7 +220,7 @@ function Register() {
               <div className="flex items-center gap-2">
                 <UploadSimple size={24} className="text-darkMossGreen" />
                 <span>
-                  {selectedFile ? selectedFile.name : "Escolha uma foto"}
+                  {selectedFile ? selectedFile.name : 'Escolha uma foto'}
                 </span>
               </div>
             </label>
@@ -242,55 +254,53 @@ function Register() {
             value={confirmPassword}
             onChange={handleConfirmPassword}
           />
-
           {/* Tipo de Cadastro (Cliente/Admin) */}
-          {/* <Listbox value={selectedOption} onChange={setSelectedOption}>
-              <div className="relative">
-                <ListboxButton className="border border-darkMossGreen rounded-lg p-3 h-14 text-darkMossGreen w-full flex items-center justify-between">
-                  <span>{selectedOption.displayType}</span>
-                  <CaretDown
-                    size={18}
-                    className="text-darkMossGreen"
-                    weight="bold"
-                  />
-                </ListboxButton>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <ListboxOptions className="absolute inset-x-0 mt-1 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 p-1">
-                    {options.map((option, index) => (
-                      <ListboxOption
-                        key={index}
-                        value={option}
-                        className={({ active }) =>
-                          `px-4 py-2 text-sm rounded-md transition ${
-                            active ? "bg-sunglow-light" : ""
-                          }`
-                        }
-                      >
-                        {({ selected }) => (
-                          <div className="flex items-center justify-between">
-                            <span className={selected ? "font-medium" : ""}>
-                              {option.displayType}
-                            </span>
-                            {selected && (
-                              <CheckCircle size={18} className="text-emerald" />
-                            )}
-                          </div>
-                        )}
-                      </ListboxOption>
-                    ))}
-                  </ListboxOptions>
-                </Transition>
-              </div>
-            </Listbox> */}
-
+          <Listbox value={selectedOption} onChange={setSelectedOption}>
+            <div className="relative">
+              <ListboxButton className="border border-darkMossGreen rounded-lg p-3 h-14 text-darkMossGreen w-full flex items-center justify-between">
+                <span>{selectedOption.displayType}</span>
+                <CaretDown
+                  size={18}
+                  className="text-darkMossGreen"
+                  weight="bold"
+                />
+              </ListboxButton>
+              <Transition
+                as={Fragment}
+                leave="transition ease-in duration-100"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <ListboxOptions className="absolute inset-x-0 mt-1 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 p-1">
+                  {options.map((option, index) => (
+                    <ListboxOption
+                      key={index}
+                      value={option}
+                      className={({ active }) =>
+                        `px-4 py-2 text-sm rounded-md transition ${
+                          active ? 'bg-sunglow-light' : ''
+                        }`
+                      }
+                    >
+                      {({ selected }) => (
+                        <div className="flex items-center justify-between">
+                          <span className={selected ? 'font-medium' : ''}>
+                            {option.displayType}
+                          </span>
+                          {selected && (
+                            <CheckCircle size={18} className="text-emerald" />
+                          )}
+                        </div>
+                      )}
+                    </ListboxOption>
+                  ))}
+                </ListboxOptions>
+              </Transition>
+            </div>
+          </Listbox>
           {/* Login Link */}
           <p className="text-center text-sm text-darkMossGreen">
-            Já possui uma conta?{" "}
+            Já possui uma conta?{' '}
             <Link
               to="/login"
               className="text-emerald font-bold hover:underline"

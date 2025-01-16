@@ -9,10 +9,10 @@
 // import { useState, useEffect } from "react";
 // import Category from "../../models/Category";
 // import { fetchData } from "../../services/Service";
-import ListCategoryIcons from "../categories/iconsCategories/ListCategoryIcons";
+import ListCategoryIcons from '../categories/iconsCategories/ListCategoryIcons';
 
 function NavbarBottom() {
-//   const [categories, setCategories] = useState<Category[]>([]);
+  //   const [categories, setCategories] = useState<Category[]>([]);
 
   // useEffect(() => {
   //   fetchData("/categories/all", setCategories, { headers: {} });

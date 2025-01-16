@@ -1,4 +1,3 @@
-
 # React E-Commerce TT
 
 Um projeto de e-commerce desenvolvido como teste tecnico com React, Vite e TypeScript, com funcionalidades de gerenciamento de categorias, produtos e autenticação.
@@ -31,37 +30,40 @@ Um projeto de e-commerce desenvolvido como teste tecnico com React, Vite e TypeS
 
 ## Principais Funcionalidades
 
-- **Categorias**: CRUD de categorias com ícones representativos.  
-- **Produtos**: CRUD de produtos e busca por categorias.  
-- **Autenticação**: Login, registro e modal responsivo.  
-- **Carrinho**: Adicionar/remover produtos com listagem dinâmica.  
+- **Categorias**: CRUD de categorias com ícones representativos.
+- **Produtos**: CRUD de produtos e busca por categorias.
+- **Autenticação**: Login, registro e modal responsivo.
+- **Carrinho**: Adicionar/remover produtos com listagem dinâmica.
 - **Estilização**: Interface responsiva com Tailwind CSS.
 
 ---
 
 ## Tecnologias
 
-- **Frontend**: React, Tailwind CSS, TypeScript.  
-- **Build Tool**: Vite.  
-- **Backend**: Integração com Spring, Mysql para ambiente de desenvolvimento, PostgreSql  para o deploy e Firebase Storage para armazenamento de imagens.
-Verifique o backend em  [Spring-ecommerce-tt](https://github.com/growthfolio/spring-ecommerce-tt)
+- **Frontend**: React, Tailwind CSS, TypeScript.
+- **Build Tool**: Vite.
+- **Backend**: Integração com Spring, Mysql para ambiente de desenvolvimento, PostgreSql para o deploy e Firebase Storage para armazenamento de imagens.
+  Verifique o backend em [Spring-ecommerce-tt](https://github.com/growthfolio/spring-ecommerce-tt)
 
 ---
 
 ## Como Rodar
 
 1. Clone o repositório:
+
    ```bash
    git clone https://github.com/growthfolio/react-ecommerce-tt.git
    cd react-ecommerce-tt
    ```
 
 2. Instale as dependências:
+
    ```bash
    npm install
    ```
 
 3. Inicie o servidor:
+
    ```bash
    npm run dev
    ```
@@ -72,9 +74,9 @@ Verifique o backend em  [Spring-ecommerce-tt](https://github.com/growthfolio/spr
 
 ## Contribuição
 
-1. Faça um fork.  
-2. Crie uma branch: `git checkout -b minha-feature`.  
-3. Faça commit: `git commit -m "Descrição da feature"`.  
+1. Faça um fork.
+2. Crie uma branch: `git checkout -b minha-feature`.
+3. Faça commit: `git commit -m "Descrição da feature"`.
 4. Envie: `git push origin minha-feature`.
 
 ---

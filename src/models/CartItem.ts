@@ -1,5 +1,5 @@
-import Cart from "./Cart";
-import Product from "./Product";
+import Cart from './Cart';
+import Product from './Product';
 
 export default interface CartItem {
   id: number;
@@ -9,7 +9,6 @@ export default interface CartItem {
   unitPrice: number; // Agora obrigatório
   subTotal: number; // Agora obrigatório
 }
-
 
 export function calculateSubTotal(cartItem: CartItem): number {
   return (cartItem.quantity ?? 0) * (cartItem.unitPrice ?? 0);

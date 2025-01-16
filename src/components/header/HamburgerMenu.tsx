@@ -1,17 +1,20 @@
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { Link } from "react-router-dom";
-import { SignOut, UserSquare, ShoppingCart } from "@phosphor-icons/react";
-import UsuarioLogin from "../../models/UserLogin";
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from '@headlessui/react';
+import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import { SignOut, UserSquare, ShoppingCart } from '@phosphor-icons/react';
+import UsuarioLogin from '../../models/UserLogin';
 
 interface HamburgerMenuProps {
-
   user: UsuarioLogin;
 
   logout: () => void;
-
 }
-
 
 function HamburgerMenu({ user, logout }: HamburgerMenuProps) {
   return (
@@ -37,7 +40,7 @@ function HamburgerMenu({ user, logout }: HamburgerMenuProps) {
                     <Link
                       to="/profile"
                       className={`${
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <UserSquare size={20} />
@@ -50,7 +53,7 @@ function HamburgerMenu({ user, logout }: HamburgerMenuProps) {
                     <button
                       onClick={logout}
                       className={`${
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <SignOut size={20} />
@@ -65,7 +68,7 @@ function HamburgerMenu({ user, logout }: HamburgerMenuProps) {
                   <Link
                     to="/login"
                     className={`${
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     Entrar
@@ -80,7 +83,7 @@ function HamburgerMenu({ user, logout }: HamburgerMenuProps) {
                 <Link
                   to="/cart"
                   className={`${
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   <ShoppingCart size={20} />

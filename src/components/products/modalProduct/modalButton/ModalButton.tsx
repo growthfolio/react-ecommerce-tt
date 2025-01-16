@@ -1,10 +1,9 @@
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
-import plus from "../../../../assets/icons/plus.svg";
-import FormProduct from "../../formProduct/FormProduct";
-import FormEditProduct from "../../formProduct/FormEditProduct";
-import DeleteProduct from "../../deleteProduct/DeleteProduct";
-
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import plus from '../../../../assets/icons/plus.svg';
+import FormProduct from '../../formProduct/FormProduct';
+import FormEditProduct from '../../formProduct/FormEditProduct';
+import DeleteProduct from '../../deleteProduct/DeleteProduct';
 
 export function ModalButtonCreate() {
   return (
@@ -19,9 +18,9 @@ export function ModalButtonCreate() {
         }
         modal
         contentStyle={{
-          width: "fit-content",
-          height: "fit-content",
-          padding: "2rem",
+          width: 'fit-content',
+          height: 'fit-content',
+          padding: '2rem',
         }}
       >
         <div>
@@ -50,9 +49,9 @@ export function ModalButtonAlter({ id }: ModalEditProductsProps) {
         }
         modal
         contentStyle={{
-          width: "fit-content",
-          height: "fit-content",
-          padding: "2rem",
+          width: 'fit-content',
+          height: 'fit-content',
+          padding: '2rem',
         }}
       >
         <div>
@@ -81,9 +80,9 @@ export function ModalButtonDelete({ id }: ModalButtonDeleteProps) {
         }
         modal
         contentStyle={{
-          width: "fit-content",
-          height: "fit-content",
-          padding: "4rem",
+          width: 'fit-content',
+          height: 'fit-content',
+          padding: '4rem',
         }}
       >
         <div>

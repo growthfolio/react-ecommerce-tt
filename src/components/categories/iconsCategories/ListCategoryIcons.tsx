@@ -1,34 +1,33 @@
-import { useEffect, useState } from "react";
-import "../../../index.css";
-import { fetchData } from "../../../services/Service";
-import Category from "../../../models/Category";
-import CategoriesIconsImg from "./CategoriesIconsImg";
+import { useEffect, useState } from 'react';
+import '../../../index.css';
+import { fetchData } from '../../../services/Service';
+import Category from '../../../models/Category';
+import CategoriesIconsImg from './CategoriesIconsImg';
 
 function ListCategoryIcons() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Ordem desejada das categorias
-const desiredOrder = [
-  "suvinil",
-  "glasu",
-  "eletrica",
-  "segurança",
-  "ferragens",
-  "hidráulica",
-  "pintura",
-  "promoção",
-];
-
+  const desiredOrder = [
+    'suvinil',
+    'glasu',
+    'eletrica',
+    'segurança',
+    'ferragens',
+    'hidráulica',
+    'pintura',
+    'promoção',
+  ];
 
   // Função para buscar categorias
   const findCategories = async () => {
     try {
-      await fetchData("/categories/all", setCategories, {
+      await fetchData('/categories/all', setCategories, {
         headers: {},
       });
     } catch (error) {
-      console.error("Erro ao buscar categorias:", error);
+      console.error('Erro ao buscar categorias:', error);
     } finally {
       setIsLoading(false);
     }
@@ -41,7 +40,9 @@ const desiredOrder = [
 
   // Remover duplicatas baseado no 'name'
   const uniqueCategories = Array.from(
-    new Map(categories.map((category) => [category.name.toLowerCase(), category])).values()
+    new Map(
+      categories.map((category) => [category.name.toLowerCase(), category]),
+    ).values(),
   );
 
   // Filtrar e ordenar as categorias
@@ -50,7 +51,7 @@ const desiredOrder = [
     .sort(
       (a, b) =>
         desiredOrder.indexOf(a.name.toLowerCase()) -
-        desiredOrder.indexOf(b.name.toLowerCase())
+        desiredOrder.indexOf(b.name.toLowerCase()),
     );
 
   return (

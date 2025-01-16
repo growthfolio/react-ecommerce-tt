@@ -1,20 +1,20 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { useNavigate, useParams } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
-import Category from "../../../models/Category";
-import { fetchData, postData, updateData } from "../../../services/Service";
-import { toastAlert } from "../../../utils/ToastAlert";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../../config/firebaseConfig";
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Category from '../../../models/Category';
+import { fetchData, postData, updateData } from '../../../services/Service';
+import { toastAlert } from '../../../utils/ToastAlert';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../../config/firebaseConfig';
 
 function FormCategory() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [category, setCategory] = useState<Category>({
     id: 0,
-    name: "",
-    description: "",
-    photo: "",
+    name: '',
+    description: '',
+    photo: '',
   });
 
   const navigate = useNavigate();
@@ -44,9 +44,9 @@ function FormCategory() {
         const snapshot = await uploadBytes(storageRef, file);
         const photoURL = await getDownloadURL(snapshot.ref);
         setCategory((prev) => ({ ...prev, photo: photoURL }));
-        toastAlert("Foto carregada com sucesso", "sucesso");
+        toastAlert('Foto carregada com sucesso', 'sucesso');
       } catch (error) {
-        toastAlert("Erro ao carregar a foto: " + error, "erro");
+        toastAlert('Erro ao carregar a foto: ' + error, 'erro');
       }
     }
   }
@@ -69,22 +69,22 @@ function FormCategory() {
             Authorization: token,
           },
         });
-        toastAlert("Categoria atualizada com sucesso", "sucesso");
+        toastAlert('Categoria atualizada com sucesso', 'sucesso');
       } else {
         await postData(`/categories`, category, setCategory, {
           headers: {
             Authorization: token,
           },
         });
-        toastAlert("Categoria cadastrada com sucesso", "sucesso");
+        toastAlert('Categoria cadastrada com sucesso', 'sucesso');
       }
-      navigate("/categories/all");
+      navigate('/categories/all');
     } catch (error: any) {
-      if (error.toString().includes("403")) {
-        toastAlert("O token expirou, favor logar novamente" + error, "info");
+      if (error.toString().includes('403')) {
+        toastAlert('O token expirou, favor logar novamente' + error, 'info');
         handleLogout();
       } else {
-        toastAlert("Erro ao salvar a categoria: " + error, "erro");
+        toastAlert('Erro ao salvar a categoria: ' + error, 'erro');
       }
     } finally {
       setIsLoading(false);
@@ -92,16 +92,16 @@ function FormCategory() {
   }
 
   useEffect(() => {
-    if (token === "") {
-      toastAlert("Você precisa estar logado", "info");
-      navigate("/login");
+    if (token === '') {
+      toastAlert('Você precisa estar logado', 'info');
+      navigate('/login');
     }
   }, [token]);
 
   return (
     <div className="container flex flex-col items-center justify-center mx-auto">
       <h1 className="text-4xl text-center my-8">
-        {id === undefined ? "Cadastre uma nova categoria" : "Editar categoria"}
+        {id === undefined ? 'Cadastre uma nova categoria' : 'Editar categoria'}
       </h1>
       <form
         className="w-1/2 flex flex-col gap-4"
@@ -147,7 +147,7 @@ function FormCategory() {
               visible={true}
             />
           ) : (
-            <span>{id === undefined ? "Cadastrar" : "Editar"}</span>
+            <span>{id === undefined ? 'Cadastrar' : 'Editar'}</span>
           )}
         </button>
       </form>

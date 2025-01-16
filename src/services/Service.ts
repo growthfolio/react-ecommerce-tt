@@ -1,4 +1,5 @@
-import axios from "axios";
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+import axios from 'axios';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -10,7 +11,11 @@ const api = axios.create({
  * @param data The data to send in the request body.
  * @param setResponse Callback to set the response data.
  */
-export const registerUser = async (url: string, data: Object, setResponse: Function) => {
+export const registerUser = async (
+  url: string,
+  data: object,
+  setResponse: Function,
+) => {
   const response = await api.post(url, data);
   setResponse(response.data);
 };
@@ -21,7 +26,11 @@ export const registerUser = async (url: string, data: Object, setResponse: Funct
  * @param data The data to send in the request body.
  * @param setResponse Callback to set the response data.
  */
-export const loginUser = async (url: string, data: Object, setResponse: Function) => {
+export const loginUser = async (
+  url: string,
+  data: object,
+  setResponse: Function,
+) => {
   const response = await api.post(url, data);
   setResponse(response.data);
 };
@@ -32,7 +41,11 @@ export const loginUser = async (url: string, data: Object, setResponse: Function
  * @param setResponse Callback to set the response data.
  * @param headers Optional request headers.
  */
-export const fetchData = async (url: string, setResponse: Function, headers: Object) => {
+export const fetchData = async (
+  url: string,
+  setResponse: Function,
+  headers: object,
+) => {
   const response = await api.get(url, headers);
   setResponse(response.data);
 };
@@ -44,7 +57,12 @@ export const fetchData = async (url: string, setResponse: Function, headers: Obj
  * @param setResponse Callback to set the response data.
  * @param headers Optional request headers.
  */
-export const postData = async (url: string, data: Object, setResponse: Function, headers: Object) => {
+export const postData = async (
+  url: string,
+  data: object,
+  setResponse: Function,
+  headers: object,
+) => {
   const response = await api.post(url, data, headers);
   setResponse(response.data);
 };
@@ -56,7 +74,12 @@ export const postData = async (url: string, data: Object, setResponse: Function,
  * @param setResponse Callback to set the response data.
  * @param headers Optional request headers.
  */
-export const updateData = async (url: string, data: Object, setResponse: Function, headers: Object) => {
+export const updateData = async (
+  url: string,
+  data: object,
+  setResponse: Function,
+  headers: object,
+) => {
   const response = await api.put(url, data, headers);
   setResponse(response.data);
 };
@@ -66,6 +89,6 @@ export const updateData = async (url: string, data: Object, setResponse: Functio
  * @param url The endpoint URL.
  * @param headers Optional request headers.
  */
-export const deleteData = async (url: string, headers: Object) => {
+export const deleteData = async (url: string, headers: object) => {
   await api.delete(url, headers);
 };

@@ -1,10 +1,10 @@
-import "reactjs-popup/dist/index.css";
+import 'reactjs-popup/dist/index.css';
 // import "./ModalCategoria.css";
 import {
   ModalButtonAlter,
   ModalButtonCreate,
   ModalButtonDelete,
-} from "./modalButton/ModalButton";
+} from './modalButton/ModalButton';
 interface ModalCategoriaProps {
   type: number;
   id: number;

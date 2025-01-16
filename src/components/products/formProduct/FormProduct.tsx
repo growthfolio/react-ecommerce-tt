@@ -1,13 +1,13 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { useNavigate, useParams } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
-import Category from "../../../models/Category";
-import Product from "../../../models/Product";
-import { fetchData, postData, updateData } from "../../../services/Service";
-import { toastAlert } from "../../../utils/ToastAlert";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../../config/firebaseConfig";
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Category from '../../../models/Category';
+import Product from '../../../models/Product';
+import { fetchData, postData, updateData } from '../../../services/Service';
+import { toastAlert } from '../../../utils/ToastAlert';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../../config/firebaseConfig';
 
 function Input({
   label,
@@ -54,23 +54,22 @@ function FormProduct() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [category, setCategory] = useState<Category>({
     id: 0,
-    name: "",
-    description: "",
-    photo: "",
+    name: '',
+    description: '',
+    photo: '',
   });
 
   const [product, setProduct] = useState<Product>({
     id: 0,
-    name: "",
+    name: '',
     price: 0,
     amount: 0,
-    photo: "",
-    description: "",
+    photo: '',
+    description: '',
     sales: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
     category: null,
-    user: null,
     likes: 0,
   });
 
@@ -83,7 +82,7 @@ function FormProduct() {
   }
 
   async function searchCategory() {
-    await fetchData("/categories/all", setCategories, {
+    await fetchData('/categories/all', setCategories, {
       headers: {
         Authorization: token,
       },
@@ -91,11 +90,11 @@ function FormProduct() {
   }
 
   useEffect(() => {
-    if (token === "") {
-      toastAlert("Você precisa estar logado", "info");
-      navigate("/");
+    if (token === '') {
+      toastAlert('Você precisa estar logado', 'info');
+      navigate('/');
     }
-  }, [token]);
+  }, [navigate, token]);
 
   useEffect(() => {
     searchCategory();
@@ -112,9 +111,9 @@ function FormProduct() {
         const snapshot = await uploadBytes(storageRef, file);
         const photoURL = await getDownloadURL(snapshot.ref);
         setProduct((prev) => ({ ...prev, photo: photoURL }));
-        toastAlert("Foto carregada com sucesso", "sucesso");
+        toastAlert('Foto carregada com sucesso', 'sucesso');
       } catch (error) {
-        toastAlert("Erro ao carregar a foto" + error, "erro");
+        toastAlert('Erro ao carregar a foto' + error, 'erro');
       }
     }
   }
@@ -142,15 +141,15 @@ function FormProduct() {
           Authorization: token,
         },
       });
-      const message = id ? "Produto atualizado" : "Produto cadastrado";
-      toastAlert(`${message} com sucesso`, "sucesso");
-      navigate("/products/all");
+      const message = id ? 'Produto atualizado' : 'Produto cadastrado';
+      toastAlert(`${message} com sucesso`, 'sucesso');
+      navigate('/products/all');
     } catch (error: any) {
-      if (error.toString().includes("403")) {
-        toastAlert("O token expirou, favor logar novamente" + error, "info");
+      if (error.toString().includes('403')) {
+        toastAlert('O token expirou, favor logar novamente' + error, 'info');
         handleLogout();
       } else {
-        toastAlert("Erro ao salvar o produto" + error, "erro");
+        toastAlert('Erro ao salvar o produto' + error, 'erro');
       }
     } finally {
       setIsLoading(false);
@@ -160,7 +159,7 @@ function FormProduct() {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-4xl text-center my-8">
-        {id ? "Editar Produto" : "Cadastrar Produto"}
+        {id ? 'Editar Produto' : 'Cadastrar Produto'}
       </h1>
 
       <form
@@ -209,11 +208,11 @@ function FormProduct() {
           <select
             name="categoria"
             id="categoria"
-            value={product.category?.id || ""}
+            value={product.category?.id || ''}
             className="border p-2 border-slate-800 rounded"
             onChange={(e) => {
               const selectedCategory = categories.find(
-                (cat) => cat.id === parseInt(e.target.value)
+                (cat) => cat.id === parseInt(e.target.value),
               );
               if (selectedCategory) setCategory(selectedCategory);
             }}
@@ -243,9 +242,9 @@ function FormProduct() {
               visible
             />
           ) : id ? (
-            "Editar"
+            'Editar'
           ) : (
-            "Cadastrar"
+            'Cadastrar'
           )}
         </button>
       </form>

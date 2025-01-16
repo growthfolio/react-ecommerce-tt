@@ -1,12 +1,12 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
-import Category from "../../../models/Category";
-import { fetchData, postData, updateData } from "../../../services/Service";
-import { toastAlert } from "../../../utils/ToastAlert";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../../config/firebaseConfig";
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Category from '../../../models/Category';
+import { fetchData, postData, updateData } from '../../../services/Service';
+import { toastAlert } from '../../../utils/ToastAlert';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../../config/firebaseConfig';
 
 interface FormEditCategoryProps {
   id?: number;
@@ -54,15 +54,15 @@ function FormEditCategory({ id }: FormEditCategoryProps) {
 
   const [category, setCategory] = useState<Category>({
     id: 0,
-    name: "",
-    description: "",
-    photo: "",
+    name: '',
+    description: '',
+    photo: '',
   });
 
   useEffect(() => {
-    if (token === "") {
-      toastAlert("Você precisa estar logado", "info");
-      navigate("/");
+    if (token === '') {
+      toastAlert('Você precisa estar logado', 'info');
+      navigate('/');
     }
   }, [token]);
 
@@ -84,9 +84,9 @@ function FormEditCategory({ id }: FormEditCategoryProps) {
         const snapshot = await uploadBytes(storageRef, file);
         const photoURL = await getDownloadURL(snapshot.ref);
         setCategory((prev) => ({ ...prev, photo: photoURL }));
-        toastAlert("Foto carregada com sucesso", "sucesso");
+        toastAlert('Foto carregada com sucesso', 'sucesso');
       } catch (error) {
-        toastAlert("Erro ao carregar a foto: " + error, "erro");
+        toastAlert('Erro ao carregar a foto: ' + error, 'erro');
       }
     }
   }
@@ -109,22 +109,22 @@ function FormEditCategory({ id }: FormEditCategoryProps) {
             Authorization: token,
           },
         });
-        toastAlert("Categoria atualizada com sucesso", "sucesso");
+        toastAlert('Categoria atualizada com sucesso', 'sucesso');
       } else {
         await postData(`/categories`, category, setCategory, {
           headers: {
             Authorization: token,
           },
         });
-        toastAlert("Categoria criada com sucesso", "sucesso");
+        toastAlert('Categoria criada com sucesso', 'sucesso');
       }
-      navigate("/categories/all");
+      navigate('/categories/all');
     } catch (error: any) {
-      if (error.toString().includes("403")) {
-        toastAlert("O token expirou, favor logar novamente", "info");
+      if (error.toString().includes('403')) {
+        toastAlert('O token expirou, favor logar novamente', 'info');
         handleLogout();
       } else {
-        toastAlert("Erro ao salvar a categoria: " + error, "erro");
+        toastAlert('Erro ao salvar a categoria: ' + error, 'erro');
       }
     } finally {
       setIsLoading(false);
@@ -133,7 +133,9 @@ function FormEditCategory({ id }: FormEditCategoryProps) {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-4xl text-center my-8">{id ? "Editar Categoria" : "Cadastrar Categoria"}</h1>
+      <h1 className="text-4xl text-center my-8">
+        {id ? 'Editar Categoria' : 'Cadastrar Categoria'}
+      </h1>
       <form
         onSubmit={saveCategory}
         className="flex flex-col w-[600px] m-4 gap-4 input-login"
@@ -178,8 +180,10 @@ function FormEditCategory({ id }: FormEditCategoryProps) {
               width="24"
               visible
             />
+          ) : id ? (
+            'Atualizar'
           ) : (
-            id ? "Atualizar" : "Cadastrar"
+            'Cadastrar'
           )}
         </button>
       </form>

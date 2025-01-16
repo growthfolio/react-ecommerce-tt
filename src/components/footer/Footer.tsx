@@ -1,16 +1,22 @@
-
-import { FacebookLogo, InstagramLogo, LinkedinLogo } from "@phosphor-icons/react";
-
+import {
+  FacebookLogo,
+  InstagramLogo,
+  LinkedinLogo,
+} from '@phosphor-icons/react';
 
 function Footer() {
   return (
     <>
-      <div className="flex justify-around gap-5 align-middle p-10 mt-20 
+      <div
+        className="flex justify-around gap-5 align-middle p-10 mt-20 
       bg-gradient-to-t from-[#070d17] via-[#04080f] to-[#070d17] text-white
-      ">
+      "
+      >
         {/* Unidade II */}
         <div className="grid grid-rows justify-items-center">
-          <h6 className="font-bold font-white uppercase text-[#f88629]">Unidade II</h6>
+          <h6 className="font-bold font-white uppercase text-[#f88629]">
+            Unidade II
+          </h6>
           <p>R. Carlos Leal Evans, Nº 255, SP</p>
           <p>Jardim Santa Francisca, Guarulhos, 07024-020</p>
           <p>CNPJ: 02.423.640/0003-00</p>
@@ -18,7 +24,9 @@ function Footer() {
 
         {/* Central de Atendimento */}
         <div className="grid grid-rows justify-items-center">
-          <h6 className="font-bold uppercase text-[#f88629]">Central de Atendimento</h6>
+          <h6 className="font-bold uppercase text-[#f88629]">
+            Central de Atendimento
+          </h6>
           <p>
             <span className="font-bold">Telefone:</span> (11) 2911-9888
           </p>
@@ -37,7 +45,11 @@ function Footer() {
               <FacebookLogo size={28} weight="fill" className="text-gray-200" />
             </a>
             <a href="#" aria-label="Instagram">
-              <InstagramLogo size={28} weight="fill" className="text-gray-200" />
+              <InstagramLogo
+                size={28}
+                weight="fill"
+                className="text-gray-200"
+              />
             </a>
             <a href="#" aria-label="LinkedIn">
               <LinkedinLogo size={28} weight="fill" className="text-gray-200" />

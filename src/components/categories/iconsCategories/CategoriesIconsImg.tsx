@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import "../../../index.css";
-import iconMapping from "../../../utils/iconMapping";
-import Category from "../../../models/Category";
+import { Link } from 'react-router-dom';
+import '../../../index.css';
+import iconMapping from '../../../utils/iconMapping';
+import Category from '../../../models/Category';
 
 interface CategoriesIconsProps {
   category: Category;
@@ -9,8 +9,8 @@ interface CategoriesIconsProps {
 
 function CategoriesIcons({ category }: CategoriesIconsProps) {
   const { imgPath } = iconMapping[category.name] || {
-    iconClass: "fas fa-question-circle",
-    imgPath: "src/assets/category/icons/default.jpeg",
+    iconClass: 'fas fa-question-circle',
+    imgPath: 'src/assets/category/icons/default.jpeg',
   };
 
   return (

@@ -1,25 +1,25 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import "./Login.css";
-import { Link, useNavigate } from "react-router-dom";
-import LoginImage from "../../assets/Logo.png";
-import "./../../index.css";
-import UserLogin from "../../models/UserLogin";
-import { AuthContext } from "../../contexts/AuthContext";
-import { ArrowCircleRight } from "@phosphor-icons/react";
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import './Login.css';
+import { Link, useNavigate } from 'react-router-dom';
+import LoginImage from '../../assets/Logo.png';
+import './../../index.css';
+import UserLogin from '../../models/UserLogin';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ArrowCircleRight } from '@phosphor-icons/react';
 
 function Login() {
   const navigate = useNavigate();
 
   const [loginCredentials, setLoginCredentials] = useState<UserLogin>(
-    {} as UserLogin
+    {} as UserLogin,
   );
 
   const { user, handleLogin, isLoading } = useContext(AuthContext);
 
   useEffect(() => {
     if (user?.token) {
-      navigate("/home");
+      navigate('/home');
     }
   }, [user, navigate]);
 

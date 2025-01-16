@@ -1,13 +1,13 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
-import "./Carousel.css"; 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
+import './Carousel.css';
 
 interface CarouselProps {
   slides: {
@@ -22,11 +22,11 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
   return (
     <div className="carousel-container h-full bg-seasalt flex justify-center items-center">
       <Swiper
-        effect="fade" 
+        effect="fade"
         fadeEffect={{ crossFade: true }}
         navigation={{
-          nextEl: ".custom-next",
-          prevEl: ".custom-prev",
+          nextEl: '.custom-next',
+          prevEl: '.custom-prev',
         }}
         pagination={{ clickable: true }}
         autoplay={{ delay: 6000 }}

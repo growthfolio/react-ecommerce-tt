@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
-import "../../../index.css";
-import Category from "../../../models/Category";
-
+import { Link } from 'react-router-dom';
+import '../../../index.css';
+import Category from '../../../models/Category';
 
 interface AdminCategoriesIconsProps {
   category: Category;

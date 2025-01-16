@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { useNavigate } from "react-router";
-import { AuthContext } from "../../../contexts/AuthContext";
-import Category from "../../../models/Category";
-import { deleteData, fetchData } from "../../../services/Service";
-import { toastAlert } from "../../../utils/ToastAlert";
-
+import { useContext, useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Category from '../../../models/Category';
+import { deleteData, fetchData } from '../../../services/Service';
+import { toastAlert } from '../../../utils/ToastAlert';
 
 interface DeleteCategoryProps {
   id: number;
@@ -16,7 +15,7 @@ function DeleteCategory({ id }: DeleteCategoryProps) {
 
   const [category, setCategory] = useState<Category>({} as Category);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { user, handleLogout } = useContext(AuthContext);
 
@@ -30,17 +29,17 @@ function DeleteCategory({ id }: DeleteCategoryProps) {
         },
       });
     } catch (error: any) {
-      if (error.toString().includes("403")) {
-        toastAlert("O token expirou, favor logar novamente", "info");
+      if (error.toString().includes('403')) {
+        toastAlert('O token expirou, favor logar novamente', 'info');
         handleLogout();
       }
     }
   }
 
   useEffect(() => {
-    if (token === "") {
-      toastAlert("Você precisa estar logado", "info");
-      navigate("/login");
+    if (token === '') {
+      toastAlert('Você precisa estar logado', 'info');
+      navigate('/login');
     }
   }, [token]);
 
@@ -51,7 +50,7 @@ function DeleteCategory({ id }: DeleteCategoryProps) {
   }, [id]);
 
   function goToCategories() {
-    navigate("/categories/all");
+    navigate('/categories/all');
   }
 
   async function deleteCategory() {
@@ -63,9 +62,9 @@ function DeleteCategory({ id }: DeleteCategoryProps) {
         },
       });
 
-      toastAlert("Categoria apagada com sucesso", "sucesso");
+      toastAlert('Categoria apagada com sucesso', 'sucesso');
     } catch (error) {
-      toastAlert("Erro ao apagar a categoria", "erro");
+      toastAlert('Erro ao apagar a categoria', 'erro');
     }
 
     goToCategories();

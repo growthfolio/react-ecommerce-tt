@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
+import { useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
 
 export const Preloader = () => {
   const [loading, setLoading] = useState(true);

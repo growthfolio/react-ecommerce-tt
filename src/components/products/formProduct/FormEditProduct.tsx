@@ -1,13 +1,13 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
-import Category from "../../../models/Category";
-import Product from "../../../models/Product";
-import { fetchData, updateData } from "../../../services/Service";
-import { toastAlert } from "../../../utils/ToastAlert";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../../config/firebaseConfig";
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Category from '../../../models/Category';
+import Product from '../../../models/Product';
+import { fetchData, updateData } from '../../../services/Service';
+import { toastAlert } from '../../../utils/ToastAlert';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../../config/firebaseConfig';
 
 interface FormEditProductProps {
   id: number;
@@ -56,23 +56,22 @@ function FormEditProduct({ id }: FormEditProductProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [category, setCategory] = useState<Category>({
     id: 0,
-    name: "",
-    description: "",
-    photo: "",
+    name: '',
+    description: '',
+    photo: '',
   });
 
   const [product, setProduct] = useState<Product>({
     id: 0,
-    name: "",
+    name: '',
     price: 0,
     amount: 0,
-    photo: "",
-    description: "",
+    photo: '',
+    description: '',
     sales: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
     category: null,
-    user: null,
     likes: 0,
   });
 
@@ -85,7 +84,7 @@ function FormEditProduct({ id }: FormEditProductProps) {
   }
 
   async function searchCategory() {
-    await fetchData("/categories/all", setCategories, {
+    await fetchData('/categories/all', setCategories, {
       headers: {
         Authorization: token,
       },
@@ -100,17 +99,17 @@ function FormEditProduct({ id }: FormEditProductProps) {
         const snapshot = await uploadBytes(storageRef, file);
         const photoURL = await getDownloadURL(snapshot.ref);
         setProduct((prev) => ({ ...prev, photo: photoURL }));
-        toastAlert("Foto carregada com sucesso", "sucesso");
+        toastAlert('Foto carregada com sucesso', 'sucesso');
       } catch (error) {
-        toastAlert("Erro ao carregar a foto"+ error, "erro");
+        toastAlert('Erro ao carregar a foto' + error, 'erro');
       }
     }
   }
 
   useEffect(() => {
-    if (token === "") {
-      toastAlert("Você precisa estar logado", "info");
-      navigate("/");
+    if (token === '') {
+      toastAlert('Você precisa estar logado', 'info');
+      navigate('/');
     }
   }, [token]);
 
@@ -140,14 +139,14 @@ function FormEditProduct({ id }: FormEditProductProps) {
           Authorization: token,
         },
       });
-      toastAlert("Produto atualizado com sucesso", "sucesso");
-      navigate("/products/all");
+      toastAlert('Produto atualizado com sucesso', 'sucesso');
+      navigate('/products/all');
     } catch (error: any) {
-      if (error.toString().includes("403")) {
-        toastAlert("O token expirou, favor logar novamente", "info");
+      if (error.toString().includes('403')) {
+        toastAlert('O token expirou, favor logar novamente', 'info');
         handleLogout();
       } else {
-        toastAlert("Erro ao atualizar o produto"+ error, "erro");
+        toastAlert('Erro ao atualizar o produto' + error, 'erro');
       }
     } finally {
       setIsLoading(false);
@@ -202,10 +201,12 @@ function FormEditProduct({ id }: FormEditProductProps) {
           <select
             name="categoria"
             id="categoria"
-            value={product.category?.id || ""}
+            value={product.category?.id || ''}
             className="border p-2 border-slate-800 rounded"
             onChange={(e) => {
-              const selectedCategory = categories.find((cat) => cat.id === parseInt(e.target.value));
+              const selectedCategory = categories.find(
+                (cat) => cat.id === parseInt(e.target.value),
+              );
               if (selectedCategory) setCategory(selectedCategory);
             }}
           >
@@ -233,7 +234,7 @@ function FormEditProduct({ id }: FormEditProductProps) {
               visible
             />
           ) : (
-            "Salvar"
+            'Salvar'
           )}
         </button>
       </form>

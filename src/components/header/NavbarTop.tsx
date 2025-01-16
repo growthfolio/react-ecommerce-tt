@@ -4,7 +4,7 @@ import {
   MenuItem,
   MenuItems,
   Transition,
-} from "@headlessui/react";
+} from '@headlessui/react';
 import {
   CaretDown,
   MagnifyingGlass,
@@ -13,40 +13,40 @@ import {
   SignOut,
   User,
   UserSquare,
-} from "@phosphor-icons/react";
-import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../assets/Logo.png";
-import { AuthContext } from "../../contexts/AuthContext";
-import { toastAlert } from "../../utils/ToastAlert";
-import HamburgerMenu from "./HamburgerMenu";
+} from '@phosphor-icons/react';
+import { useContext, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Logo from '../../assets/Logo.png';
+import { AuthContext } from '../../contexts/AuthContext';
+import { toastAlert } from '../../utils/ToastAlert';
+import HamburgerMenu from './HamburgerMenu';
 
 function NavbarTop() {
   const navigate = useNavigate();
   const { user, handleLogout } = useContext(AuthContext);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   function logout() {
     handleLogout();
-    toastAlert("Usuário deslogado com sucesso", "sucesso");
-    navigate("/login");
+    toastAlert('Usuário deslogado com sucesso', 'sucesso');
+    navigate('/login');
   }
 
   function handleSearch() {
-    if (searchTerm.trim() === "") {
-      toastAlert("Digite algo para pesquisar.", "warning");
+    if (searchTerm.trim() === '') {
+      toastAlert('Digite algo para pesquisar.', 'warning');
       return;
     }
 
     navigate(`/products/names/${searchTerm}`);
-    setSearchTerm("");
+    setSearchTerm('');
   }
 
   const userDropdown = user.token ? (
@@ -61,7 +61,7 @@ function NavbarTop() {
             <p className="px-2">Meu Perfil</p>
           </Link>
         </MenuItem>
-        {user.type === "admin" && (
+        {user.type === 'admin' && (
           <>
             <MenuItem>
               <Link
@@ -117,13 +117,11 @@ function NavbarTop() {
         <Link to="/home" className="flex items-center">
           <img src={Logo} alt="Logo Safari" className="w-25 md:w-20" />
         </Link>
-        {isMobile && (
-          <HamburgerMenu user={user} logout={logout} />
-        )}
+        {isMobile && <HamburgerMenu user={user} logout={logout} />}
       </div>
 
       {/* Barra de pesquisa */}
-      <div className={`flex flex-1 ${isMobile ? "hidden" : "justify-center"}`}>
+      <div className={`flex flex-1 ${isMobile ? 'hidden' : 'justify-center'}`}>
         <div className="flex items-center bg-seasalt rounded-full border w-full max-w-2xl lg:max-w-xl md:max-w-lg sm:max-w-md">
           <input
             type="text"

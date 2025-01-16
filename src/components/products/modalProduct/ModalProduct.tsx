@@ -1,10 +1,10 @@
-import "reactjs-popup/dist/index.css";
-import "./ModalProduct.css";
+import 'reactjs-popup/dist/index.css';
+import './ModalProduct.css';
 import {
   ModalButtonAlter,
   ModalButtonCreate,
   ModalButtonDelete,
-} from "./modalButton/ModalButton";
+} from './modalButton/ModalButton';
 
 interface ModalProductProps {
   type: number;

@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { LineWave } from "react-loader-spinner";
-import { useParams } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
-import Product from "../../../models/Product";
-import { fetchData } from "../../../services/Service";
-import { toastAlert } from "../../../utils/ToastAlert";
-import CardProduct from "../cardProduct/CardProduct";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useContext, useEffect, useState } from 'react';
+import { LineWave } from 'react-loader-spinner';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Product from '../../../models/Product';
+import { fetchData } from '../../../services/Service';
+import { toastAlert } from '../../../utils/ToastAlert';
+import CardProduct from '../cardProduct/CardProduct';
 
 function SearchProduct() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,15 +19,15 @@ function SearchProduct() {
       try {
         await fetchData(`/products/names/${name}`, setProducts, {});
       } catch (error: any) {
-        if (error.toString().includes("403")) {
-          toastAlert("O token expirou, favor logar novamente", "info");
+        if (error.toString().includes('403')) {
+          toastAlert('O token expirou, favor logar novamente', 'info');
           handleLogout();
         }
       }
     }
 
     fetchProducts();
-  }, [name]);
+  }, [name, handleLogout]);
   return (
     <>
       {products.length === 0 && (
@@ -46,7 +46,7 @@ function SearchProduct() {
           <CardProduct
             key={product.id}
             product={product}
-            category={product.category?.name || "Unknown Category"}
+            category={product.category?.name || 'Unknown Category'}
           />
         ))}
       </div>

@@ -1,6 +1,5 @@
-import Cart from "./Cart";
-import Product from "./Product";
-
+import Cart from './Cart';
+import Product from './Product';
 
 export default interface User {
   id?: number;
