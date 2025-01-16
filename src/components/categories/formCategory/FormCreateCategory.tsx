@@ -135,7 +135,7 @@ function FormCategory() {
           />
         </div>
         <button
-          className="rounded-[10px] bg-darkMossGreen border border-darkMossGreen hover:bg-[#f7f7f7] hover:text-darkMossGreen text-white w-2/6 h-[60px] p-4 flex justify-center items-center"
+          className="rounded-[10px] bg-charcoalGray border border-charcoalGray hover:bg-[#f7f7f7] hover:text-charcoalGray text-white w-2/6 h-[60px] p-4 flex justify-center items-center"
           type="submit"
         >
           {isLoading ? (

@@ -132,7 +132,7 @@
 //             &times;
 //           </button>
 //           <div className="text-center mb-6">
-//             <h2 className="text-2xl font-bold text-emerald">
+//             <h2 className="text-2xl font-bold text-deepOcean">
 //               {isLoginMode ? "Entrar" : "Registrar"}
 //             </h2>
 //           </div>
@@ -156,7 +156,7 @@
 //               />
 //               <button
 //                 type="submit"
-//                 className="bg-emerald text-white rounded-lg p-3 w-full flex items-center justify-center"
+//                 className="bg-deepOcean text-white rounded-lg p-3 w-full flex items-center justify-center"
 //               >
 //                 {isLoading ? (
 //                   <RotatingLines
@@ -181,7 +181,7 @@
 //                 Ainda não tem uma conta?{" "}
 //                 <button
 //                   onClick={toggleAuthMode}
-//                   className="text-emerald font-bold hover:underline"
+//                   className="text-deepOcean font-bold hover:underline"
 //                 >
 //                   Cadastre-se aqui.
 //                 </button>
@@ -260,7 +260,7 @@
 //               </Listbox>
 //               <button
 //                 type="submit"
-//                 className="bg-emerald text-white rounded-lg p-3 w-full flex items-center justify-center"
+//                 className="bg-deepOcean text-white rounded-lg p-3 w-full flex items-center justify-center"
 //               >
 //                 {isLoading ? (
 //                   <RotatingLines
@@ -285,7 +285,7 @@
 //                 Já tem uma conta?{" "}
 //                 <button
 //                   onClick={toggleAuthMode}
-//                   className="text-emerald font-bold hover:underline"
+//                   className="text-deepOcean font-bold hover:underline"
 //                 >
 //                   Faça login aqui.
 //                 </button>

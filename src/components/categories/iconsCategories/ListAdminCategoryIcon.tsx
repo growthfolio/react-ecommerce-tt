@@ -13,7 +13,7 @@ function ListAdminCategoryIcon(props: CategoryCardProps) {
       <div className=" flex justify-center mb-5">
         <div className="container flex flex-col items-center justify-center text-white">
           <div className="mt-4">
-            <h5 className="font-Roboto text-darkMossGreen mb-5">Categorias</h5>
+            <h5 className="font-Roboto text-charcoalGray mb-5">Categorias</h5>
           </div>
           <div className="w-[900px] mx-auto my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center ">
             <ModalCategory type={1} id={0} />

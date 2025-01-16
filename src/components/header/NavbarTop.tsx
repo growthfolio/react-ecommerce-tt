@@ -50,12 +50,12 @@ function NavbarTop() {
   }
 
   const userDropdown = user.token ? (
-    <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-seasalt shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+    <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-pureSnow shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
       <div className="px-1 py-1">
         <MenuItem>
           <Link
             to="/profile"
-            className="flex px-4 py-2 text-sm bg-seasalt text-darkMossGreen hover:bg-sunglow-light rounded-md"
+            className="flex px-4 py-2 text-sm bg-pureSnow text-charcoalGray hover:bg-light rounded-md"
           >
             <UserSquare size={16} />
             <p className="px-2">Meu Perfil</p>
@@ -66,7 +66,7 @@ function NavbarTop() {
             <MenuItem>
               <Link
                 to="registerProduct"
-                className="flex px-4 py-2 text-sm bg-seasalt text-darkMossGreen hover:bg-sunglow-light rounded-md"
+                className="flex px-4 py-2 text-sm bg-pureSnow text-charcoalGray hover:bg-light rounded-md"
               >
                 <p className="px-2">Criar Produto</p>
               </Link>
@@ -74,7 +74,7 @@ function NavbarTop() {
             <MenuItem>
               <Link
                 to="/registerCategory"
-                className="flex px-4 py-2 text-sm bg-seasalt text-darkMossGreen hover:bg-sunglow-light rounded-md"
+                className="flex px-4 py-2 text-sm bg-pureSnow text-charcoalGray hover:bg-light rounded-md"
               >
                 <p className="px-2">Criar Categoria</p>
               </Link>
@@ -85,7 +85,7 @@ function NavbarTop() {
           <Link
             to="/login"
             onClick={logout}
-            className="flex px-4 py-2 text-sm bg-seasalt text-darkMossGreen hover:bg-sunglow-light rounded-md"
+            className="flex px-4 py-2 text-sm bg-pureSnow text-charcoalGray hover:bg-light rounded-md"
           >
             <SignOut size={16} />
             <p className="px-2">Sair</p>
@@ -94,12 +94,12 @@ function NavbarTop() {
       </div>
     </MenuItems>
   ) : (
-    <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-seasalt shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+    <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-pureSnow shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
       <div className="px-1 py-1">
         <MenuItem>
           <Link
             to="/login"
-            className="flex px-4 py-2 text-sm bg-seasalt text-darkMossGreen hover:bg-sunglow-light rounded-md"
+            className="flex px-4 py-2 text-sm bg-pureSnow text-charcoalGray hover:bg-light rounded-md"
           >
             <SignIn size={16} />
             <p className="px-2">Entrar</p>
@@ -122,7 +122,7 @@ function NavbarTop() {
 
       {/* Barra de pesquisa */}
       <div className={`flex flex-1 ${isMobile ? 'hidden' : 'justify-center'}`}>
-        <div className="flex items-center bg-seasalt rounded-full border w-full max-w-2xl lg:max-w-xl md:max-w-lg sm:max-w-md">
+        <div className="flex items-center bg-pureSnow rounded-full border w-full max-w-2xl lg:max-w-xl md:max-w-lg sm:max-w-md">
           <input
             type="text"
             placeholder="Pesquisar"
@@ -133,7 +133,7 @@ function NavbarTop() {
           />
           <button
             onClick={handleSearch}
-            className="bg-emerald p-2 rounded-full flex justify-center items-center"
+            className="bg-deepOcean p-2 rounded-full flex justify-center items-center"
             aria-label="Iniciar busca"
           >
             <MagnifyingGlass size={24} />

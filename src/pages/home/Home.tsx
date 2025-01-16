@@ -8,7 +8,7 @@ function Home() {
   return (
     <>
       <main>
-        <section className=" bg-seasalt  justify-center items-center">
+        <section className=" bg-pureSnow  justify-center items-center">
           <Carousel slides={carouselMock} />
         </section>
         <section className="w-ful flex justify-center items-center mt-[50px]  mb-[40px] ">

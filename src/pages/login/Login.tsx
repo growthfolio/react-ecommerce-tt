@@ -37,9 +37,9 @@ function Login() {
 
   return (
     <>
-      <div className="bg-seasalt">
-        <section className="bg-seasalt grid justify-items-center font-bold p-32">
-          <article className="grid bg-seasalt grid-cols-3 rounded-[30px] shadow-2xl w-3/6">
+      <div className="bg-pureSnow">
+        <section className="bg-pureSnow grid justify-items-center font-bold p-32">
+          <article className="grid bg-pureSnow grid-cols-3 rounded-[30px] shadow-2xl w-3/6">
             <div className="hidden md:flex flex-col justify-center items-center bg-gradient-to-t from-[#070d17] via-[#070d17] to-[#04080f] rounded-s-[30px] p-6">
               <img
                 src={LoginImage}
@@ -60,7 +60,7 @@ function Login() {
                     id="email"
                     name="email"
                     placeholder="Email"
-                    className="border border-davysGray rounded-lg p-3 h-14 text-darkMossGreen"
+                    className="border border-silverMist rounded-lg p-3 h-14 text-charcoalGray"
                     value={loginCredentials.email}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       updateState(e)
@@ -73,7 +73,7 @@ function Login() {
                     id="password"
                     name="password"
                     placeholder="Senha"
-                    className="border border-davysGray rounded-lg p-3 h-14 text-darkMossGreen"
+                    className="border border-silverMist rounded-lg p-3 h-14 text-charcoalGray"
                     value={loginCredentials.password}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       updateState(e)
@@ -86,14 +86,14 @@ function Login() {
                 Ainda não tem uma conta?
                 <Link
                   to="/register"
-                  className="text-emerald font-bold hover:underline ml-1"
+                  className="text-deepOcean font-bold hover:underline ml-1"
                 >
                   Cadastre-se
                 </Link>
               </p>
               <button
                 type="submit"
-                className="rounded-[10px] bg-darkMossGreen border border-darkMossGreen 
+                className="rounded-[10px] bg-charcoalGray border border-charcoalGray 
               text-white w-2/6 h-[60px] p-4 flex justify-center items-center 
               transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-10 
               duration-50 shadow-lg"

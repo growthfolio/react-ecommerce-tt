@@ -31,7 +31,7 @@ function NavbarBottom() {
         <Menu as="div" className="relative inline-block">
           <MenuButton className="hover:text-[#f88629]">Categorias</MenuButton>
           <Transition>
-            <MenuItems className="absolute mt-2 z-10 rounded-lg rounded-tl-none w-56 bg-seasalt shadow-lg">
+            <MenuItems className="absolute mt-2 z-10 rounded-lg rounded-tl-none w-56 bg-pureSnow shadow-lg">
               <MenuItem>
                 <Link
                   to="/categories/all"

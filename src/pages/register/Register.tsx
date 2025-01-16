@@ -145,8 +145,8 @@ function Register() {
   }
 
   return (
-    <div className="bg-seasalt min-h-[80vh] registerBackground flex justify-center items-center px-4">
-      <section className="grid grid-cols-1 md:grid-cols-3 max-w-screen-md rounded-[30px] shadow-xl bg-seasalt w-full">
+    <div className="bg-pureSnow min-h-[80vh] registerBackground flex justify-center items-center px-4">
+      <section className="grid grid-cols-1 md:grid-cols-3 max-w-screen-md rounded-[30px] shadow-xl bg-pureSnow w-full">
         {/* Lado Esquerdo (Imagem e Background) */}
         <div className="hidden md:flex flex-col justify-center items-center bg-gradient-to-t from-[#070d17] via-[#070d17] to-[#04080f] rounded-s-[30px] p-6">
           <img
@@ -158,10 +158,10 @@ function Register() {
 
         {/* Formulário */}
         <form
-          className="col-span-2 flex flex-col gap-6 p-8 rounded-e-[30px] bg-sunglow-light w-full"
+          className="col-span-2 flex flex-col gap-6 p-8 rounded-e-[30px] bg-light w-full"
           onSubmit={registerNewUser}
         >
-          <h4 className="text-emerald text-2xl font-bold text-center">
+          <h4 className="text-deepOcean text-2xl font-bold text-center">
             Cadastrar
           </h4>
 
@@ -171,7 +171,7 @@ function Register() {
             id="name"
             name="name"
             placeholder="Nome"
-            className="border border-davysGray rounded-lg p-3 h-14 text-darkMossGreen"
+            className="border border-silverMist rounded-lg p-3 h-14 text-charcoalGray"
             value={user.name}
             onChange={updateUserState}
           />
@@ -182,7 +182,7 @@ function Register() {
             id="email"
             name="email"
             placeholder="Email"
-            className="border border-davysGray rounded-lg p-3 h-14 text-darkMossGreen"
+            className="border border-silverMist rounded-lg p-3 h-14 text-charcoalGray"
             value={user.email}
             onChange={updateUserState}
           />
@@ -193,13 +193,13 @@ function Register() {
             id="cpf_cnpj"
             name="cpf_cnpj"
             placeholder="CPF"
-            className="border border-davysGray rounded-lg p-3 h-14 text-darkMossGreen"
+            className="border border-silverMist rounded-lg p-3 h-14 text-charcoalGray"
             value={user.cpf_cnpj}
             onChange={updateUserState}
           />
 
           {/* Upload de Foto */}
-          <div className="relative flex flex-col items-start border border-davysGray rounded-lg p-3">
+          <div className="relative flex flex-col items-start border border-silverMist rounded-lg p-3">
             <input
               type="file"
               id="photo"
@@ -218,7 +218,7 @@ function Register() {
               className="flex items-center gap-2 cursor-pointer w-full justify-between"
             >
               <div className="flex items-center gap-2">
-                <UploadSimple size={24} className="text-darkMossGreen" />
+                <UploadSimple size={24} className="text-charcoalGray" />
                 <span>
                   {selectedFile ? selectedFile.name : 'Escolha uma foto'}
                 </span>
@@ -242,7 +242,7 @@ function Register() {
             id="password"
             name="password"
             placeholder="Senha"
-            className="border border-davysGray rounded-lg p-3 h-14 text-darkMossGreen"
+            className="border border-silverMist rounded-lg p-3 h-14 text-charcoalGray"
             value={user.password}
             onChange={updateUserState}
           />
@@ -250,18 +250,18 @@ function Register() {
             type="password"
             id="confirmPassword"
             placeholder="Confirmar Senha"
-            className="border border-davysGray rounded-lg p-3 h-14 text-darkMossGreen"
+            className="border border-silverMist rounded-lg p-3 h-14 text-charcoalGray"
             value={confirmPassword}
             onChange={handleConfirmPassword}
           />
           {/* Tipo de Cadastro (Cliente/Admin) */}
           <Listbox value={selectedOption} onChange={setSelectedOption}>
             <div className="relative">
-              <ListboxButton className="border border-darkMossGreen rounded-lg p-3 h-14 text-darkMossGreen w-full flex items-center justify-between">
+              <ListboxButton className="border border-charcoalGray rounded-lg p-3 h-14 text-charcoalGray w-full flex items-center justify-between">
                 <span>{selectedOption.displayType}</span>
                 <CaretDown
                   size={18}
-                  className="text-darkMossGreen"
+                  className="text-charcoalGray"
                   weight="bold"
                 />
               </ListboxButton>
@@ -278,7 +278,7 @@ function Register() {
                       value={option}
                       className={({ active }) =>
                         `px-4 py-2 text-sm rounded-md transition ${
-                          active ? 'bg-sunglow-light' : ''
+                          active ? 'bg-light' : ''
                         }`
                       }
                     >
@@ -288,7 +288,7 @@ function Register() {
                             {option.displayType}
                           </span>
                           {selected && (
-                            <CheckCircle size={18} className="text-emerald" />
+                            <CheckCircle size={18} className="text-deepOcean" />
                           )}
                         </div>
                       )}
@@ -299,11 +299,11 @@ function Register() {
             </div>
           </Listbox>
           {/* Login Link */}
-          <p className="text-center text-sm text-darkMossGreen">
+          <p className="text-center text-sm text-charcoalGray">
             Já possui uma conta?{' '}
             <Link
               to="/login"
-              className="text-emerald font-bold hover:underline"
+              className="text-deepOcean font-bold hover:underline"
             >
               Faça o Login
             </Link>
@@ -312,7 +312,7 @@ function Register() {
           {/* Botão de Cadastro */}
           <button
             type="submit"
-            className="bg-emerald text-white rounded-lg h-14 flex items-center justify-center gap-2 hover:bg-darkMossGreen transition"
+            className="bg-deepOcean text-white rounded-lg h-14 flex items-center justify-center gap-2 hover:bg-charcoalGray transition"
           >
             {isLoading ? (
               <RotatingLines

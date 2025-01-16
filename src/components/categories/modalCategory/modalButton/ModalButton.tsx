@@ -10,7 +10,7 @@ export function ModalButtonCreate() {
     <>
       <Popup
         trigger={
-          <button className="w-[200px] rounded-[15px] bg-seasalt px-3 py-2 flex justify-center items-center transition ease-in-out delay-50 hover:-translate-y-4 hover:scale-110 duration-300 shadow-lg">
+          <button className="w-[200px] rounded-[15px] bg-pureSnow px-3 py-2 flex justify-center items-center transition ease-in-out delay-50 hover:-translate-y-4 hover:scale-110 duration-300 shadow-lg">
             <div>
               <img src={plus} className="w-20" />
             </div>
@@ -42,7 +42,7 @@ export function ModalButtonAlter({ id }: ModalEditCategoryProps) {
         trigger={
           <button
             type="submit"
-            className="mt-4 rounded-[7px]  bg-sunglow border border-sunglow hover:bg-[#f7f7f7]text-darkMossGreen textButton  text-darkMossGreen h-[40px] p-4 flex justify-center items-center transition ease-in-out delay-50 hover:-translate-y-2 hover:scale-110 duration-300 shadow-lg "
+            className="mt-4 rounded-[7px]  bg-DEFAULT border border-DEFAULT hover:bg-[#f7f7f7]text-charcoalGray textButton  text-charcoalGray h-[40px] p-4 flex justify-center items-center transition ease-in-out delay-50 hover:-translate-y-2 hover:scale-110 duration-300 shadow-lg "
           >
             <p className="textButton">Alterar</p>
           </button>
@@ -73,7 +73,7 @@ export function ModalButtonDelete({ id }: ModalButtonDeleteProps) {
         trigger={
           <button
             type="submit"
-            className="mt-4 rounded-[7px]  bg-[#FF5757] border border-[#FF5757] hover:bg-[#f7f7f7]text-darkMossGreen textButton  text-darkMossGreen h-[40px] p-4 flex justify-center items-center transition ease-in-out delay-50 hover:-translate-y-2 hover:scale-110 duration-300 shadow-lg "
+            className="mt-4 rounded-[7px]  bg-[#FF5757] border border-[#FF5757] hover:bg-[#f7f7f7]text-charcoalGray textButton  text-charcoalGray h-[40px] p-4 flex justify-center items-center transition ease-in-out delay-50 hover:-translate-y-2 hover:scale-110 duration-300 shadow-lg "
           >
             <p className="textButton text-white">Deletar</p>
           </button>

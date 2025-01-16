@@ -80,7 +80,7 @@ function DeleteProduct({ id }: DeleteProductProps) {
         Você tem certeza de que deseja apagar o produto?
       </p>
 
-      <div className="bg-seasalt flex flex-col rounded-2xl overflow-hidden justify-between shadow-lg">
+      <div className="bg-pureSnow flex flex-col rounded-2xl overflow-hidden justify-between shadow-lg">
         <h6 className="mt-4 px-6 text-black text-lg">Seu Produto:</h6>
         <div className="p-4">
           <p className="text-2xl h-full font-medium m-2 uppercase">
@@ -92,7 +92,7 @@ function DeleteProduct({ id }: DeleteProductProps) {
         </div>
         <div className="flex">
           <button
-            className="text-black textButton border border-sunglow bg-sunglow hover:bg-white hover:text-sunglow hover:border hover:border-sunglow rounded-lg w-full shadow-lg m-4 py-2"
+            className="text-black textButton border border-DEFAULT bg-DEFAULT hover:bg-white hover:text-DEFAULT hover:border hover:border-DEFAULT rounded-lg w-full shadow-lg m-4 py-2"
             onClick={BackToProductList}
           >
             Não

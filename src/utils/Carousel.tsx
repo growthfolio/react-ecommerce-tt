@@ -20,7 +20,7 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ slides }) => {
   return (
-    <div className="carousel-container h-full bg-seasalt flex justify-center items-center">
+    <div className="carousel-container h-full bg-pureSnow flex justify-center items-center">
       <Swiper
         effect="fade"
         fadeEffect={{ crossFade: true }}

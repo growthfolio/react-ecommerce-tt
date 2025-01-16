@@ -36,7 +36,7 @@ function Input({
         placeholder={placeholder}
         name={name}
         required={required}
-        className="border border-darkMossGreen rounded-[10px] p-2 h-14"
+        className="border border-charcoalGray rounded-[10px] p-2 h-14"
       />
     </div>
   );
@@ -199,7 +199,7 @@ function FormProduct() {
             type="file"
             accept="image/*"
             onChange={handlePhotoUpload}
-            className="border border-darkMossGreen rounded-[10px] p-2"
+            className="border border-charcoalGray rounded-[10px] p-2"
           />
         </div>
 
@@ -231,7 +231,7 @@ function FormProduct() {
         <button
           disabled={isLoading}
           type="submit"
-          className="rounded-[10px] bg-darkMossGreen text-white w-2/6 h-[60px] p-4 flex justify-center items-center ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 shadow-md cursor-pointer"
+          className="rounded-[10px] bg-charcoalGray text-white w-2/6 h-[60px] p-4 flex justify-center items-center ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 shadow-md cursor-pointer"
         >
           {isLoading ? (
             <RotatingLines

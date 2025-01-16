@@ -66,7 +66,7 @@ function CardProduct({ product, category }: CardProductProps) {
       <div className="p-3">
         <header className="mb-3">
           <div className="text-darkBlue rounded-md text-center">
-            <p className="text-white bg-darkMossGreen p-1 px-2 font-bold capitalize w-max rounded-md">
+            <p className="text-white bg-charcoalGray p-1 px-2 font-bold capitalize w-max rounded-md">
               {category}
             </p>
           </div>
@@ -80,7 +80,7 @@ function CardProduct({ product, category }: CardProductProps) {
         </header>
 
         <section className="flex flex-col px-2">
-          <p className="text-[16px] text-darkMossGreen font-bold capitalize my-1">
+          <p className="text-[16px] text-charcoalGray font-bold capitalize my-1">
             {product.name}
           </p>
           <p className="text-sm text-gray-600" title={product.description}>

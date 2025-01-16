@@ -27,7 +27,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <ToastContainer />
-        <div className="min-h-[80vh] bg-seasalt">
+        <div className="min-h-[80vh] bg-pureSnow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />

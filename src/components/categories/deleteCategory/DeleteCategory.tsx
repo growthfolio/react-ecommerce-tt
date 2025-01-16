@@ -78,7 +78,7 @@ function DeleteCategory({ id }: DeleteCategoryProps) {
       </p>
 
       <div className="border flex flex-col rounded-2xl overflow-hidden justify-between">
-        <header className="py-2 px-6 bg-darkMossGreen text-white font-bold text-2xl">
+        <header className="py-2 px-6 bg-charcoalGray text-white font-bold text-2xl">
           Categoria
         </header>
         <p className="p-8 text-3xl h-full">{category.name}</p>
