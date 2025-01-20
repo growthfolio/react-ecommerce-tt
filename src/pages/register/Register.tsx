@@ -7,7 +7,7 @@ import {
 import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 import { RotatingLines } from 'react-loader-spinner';
 import { Link, useNavigate } from 'react-router-dom';
-import CadastroImage from '../../assets/Logo.png';
+import CadastroImage from '../../../public/assets/Logo.png';
 import './../../index.css';
 import User from '../../models/User';
 import { toastAlert } from '../../utils/ToastAlert';

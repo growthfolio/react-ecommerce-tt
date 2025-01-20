@@ -16,7 +16,7 @@ import {
 } from '@phosphor-icons/react';
 import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Logo from '../../assets/Logo.png';
+import Logo from '../../../public/assets/Logo.png';
 import { AuthContext } from '../../contexts/AuthContext';
 import { toastAlert } from '../../utils/ToastAlert';
 import HamburgerMenu from './HamburgerMenu';
