@@ -22,25 +22,23 @@ import {
   Transition,
 } from '@headlessui/react';
 
-const options = [
-  { type: 'cliente', displayType: 'Quero comprar', textPlaceholder: 'CPF' },
-  { type: 'admin', displayType: 'Quero vender', textPlaceholder: 'CNPJ' },
-];
-
 function Register() {
   const navigate = useNavigate();
-
-  const [selectedOption, setSelectedOption] = useState(options[0]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-
+  const options = [
+    { type: 'cliente', displayType: 'Quero comprar', textPlaceholder: 'CPF' },
+    { type: 'admin', displayType: 'Quero vender', textPlaceholder: 'CNPJ' },
+  ];
+  const [selectedOption, setSelectedOption] = useState(options[0]);
+  
   const [user, setUser] = useState<User>({
     name: '',
     email: '',
     password: '',
     photo: '',
     cpf_cnpj: '',
-    type: 'cliente',
+    type: '',
   });
 
   const [userResponse, setUserResponse] = useState<User | null>(null);
@@ -97,12 +95,12 @@ function Register() {
     });
   }
 
-  // useEffect(() => {
-  //   setUser((prevState) => ({
-  //     ...prevState,
-  //     type: selectedOption.type,
-  //   }));
-  // }, [selectedOption]);
+  useEffect(() => {
+    setUser((prevState) => ({
+      ...prevState,
+      type: selectedOption.type,
+    }));
+  }, [selectedOption]);
 
   async function registerNewUser(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -277,7 +275,7 @@ function Register() {
                       key={index}
                       value={option}
                       className={({ active }) =>
-                        `px-4 py-2 text-sm rounded-md transition ${
+                        `px-4 py-2 text-sm rounded-md cursor-pointer transition ${
                           active ? 'bg-light' : ''
                         }`
                       }
